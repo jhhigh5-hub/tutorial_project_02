@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/login_page.css">
+    <link rel="stylesheet" href="/css/signup">
 </head>
 <header>
     <div class="top-logo">
