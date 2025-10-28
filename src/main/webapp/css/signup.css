@@ -77,3 +77,39 @@ input:focus {
 .signup-btn:hover{
     box-shadow: 0 2px 8px 0 rgba(33, 197, 49, .54);
 }
+
+
+/*체크 박스*/
+.keepLogin{
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝 정렬 */
+    align-items: center;            /* 세로 가운데 정렬 */
+    margin-bottom: 15px;
+}
+.keepLogin-p{
+    font-size: 13px;
+    text-align: center;
+}
+.checkbox-login{
+    width: 20px;
+    height: 20px;
+    /* background-color: blue;  /* 보더/디버그 없애는 걸 권장 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+/* 체크박스 자체 크기 맞추기 */
+.checkbox-login input[type="checkbox"]{
+    width: 16px;   /* 원하는 크기 */
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    /* 필요하면 아래처럼 크기 확대 가능:
+       transform: scale(1.1);
+       transform-origin: center;
+    */
+}

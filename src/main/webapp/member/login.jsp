@@ -23,25 +23,25 @@
                 로그인
             </div>
             <div class="signup-id">
-                <input type="text" placeholder="아이디" name="id" id="id" onkeyup = "updateButtonState()" >
+                <input type="text" placeholder="아이디" name="id" id="id" onkeyup="updateButtonState()">
             </div>
             <div class="signup-pw">
                 <input type="password" placeholder="비밀번호" name="pw" id="pw">
             </div>
-            <div>
-                <div class="mt-1" style="display: flex; justify-content: space-between">
-                    <label for="keepLogin">
-                        <small>로그인 상태 유지</small>
-                    </label>
-                    <input type="checkbox" name="keepLogin" id="keepLogin" onchange="keepLoginConfirm();"/>
+            <div class="keepLogin">
+                <div class="keepLogin-p">
+                    로그인 상태 유지
+                </div>
+                <div class="checkbox-login">
+                    <input type="checkbox" name="keepLogin" id="keepLogin" onchange="keepLoginConfirm();">
                 </div>
             </div>
-            <button class="signup-btn">
+            <button type="submit" class="sign-btn" id="loginBt">
                 <p>로그인</p>
             </button>
         </form>
         <p class="text-center">
-            아직 회원이 아니신가요? <a href="/member/signup" style="color:  rgba(0,144,249, 0.8)">회원가입</a>
+            아직 회원이 아니신가요? <a href="/member/signup" style="color: rgba(0,144,249, 0.8)">회원가입</a>
         </p>
     </div>
 </main>
