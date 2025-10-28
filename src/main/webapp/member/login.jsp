@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: LG
-  Date: 25. 10. 28.
-  Time: 오후 5:00
+  User: leejihee
+  Date: 2025. 10. 28.
+  Time: 12:18
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,20 +18,31 @@
 </header>
 <main>
     <div class="content">
-        <form action="/member/signup" method="post">
+        <form action="/member/login" method="post">
             <div class="con-title">
                 로그인
             </div>
-            <div class="login-id">
+            <div class="signup-id">
                 <input type="text" placeholder="아이디" name="id" id="id" onkeyup = "updateButtonState()" >
             </div>
-            <div class="login-pw">
+            <div class="signup-pw">
                 <input type="password" placeholder="비밀번호" name="pw" id="pw">
             </div>
-            <button class="login-btn">
-                <p>로그인하기</p>
+            <div>
+                <div class="mt-1" style="display: flex; justify-content: space-between">
+                    <label for="keepLogin">
+                        <small>로그인 상태 유지</small>
+                    </label>
+                    <input type="checkbox" name="keepLogin" id="keepLogin" onchange="keepLoginConfirm();"/>
+                </div>
+            </div>
+            <button class="signup-btn">
+                <p>로그인</p>
             </button>
         </form>
+        <p class="text-center">
+            아직 회원이 아니신가요? <a href="/member/signup" style="color:  rgba(0,144,249, 0.8)">회원가입</a>
+        </p>
     </div>
 </main>
 </body>
