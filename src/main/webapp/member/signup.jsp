@@ -9,8 +9,40 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/login_page.css">
 </head>
-<body>
-
+<header>
+    <div class="top-logo">
+        <a href=""><img src="/img/band-b-logo.png" alt=""></a>
+    </div>
+</header>
+<main>
+    <div class="content">
+        <form action="/member/signup" method="post">
+            <div class="con-title">
+                회원가입
+            </div>
+            <div class="signup-id">
+                <input type="text" placeholder="아이디" name="id" id="id" onkeyup = "updateButtonState()" >
+            </div>
+            <div class="signup-pw">
+                <input type="password" placeholder="비밀번호" name="pw" id="pw">
+                <p class="pw-title">6자 이상 대소문자, 숫자, 특수문자를 사용하세요.</p>
+            </div>
+            <div class="signup-email">
+                <input type="text" placeholder="이메일" name="eamil" id="email">
+            </div>
+            <div class="signup-name">
+                <input type="text" placeholder="이름" name="name" id="name">
+            </div>
+            <div class="signup-nickname">
+                <input type="text" placeholder="닉네임" name="nickname" id="nickname">
+            </div>
+            <button>
+                <p>회원가입하기</p>
+            </button>
+        </form>
+    </div>
+</main>
 </body>
 </html>
