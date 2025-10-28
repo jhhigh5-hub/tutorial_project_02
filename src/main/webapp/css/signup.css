@@ -23,8 +23,9 @@ header .top-logo{
 
 }
 header .top-logo img{
-    width: 100px;
-    height: 28px;
+    width: 73px;
+    height: 22px;
+
     position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -46,7 +47,7 @@ input{
     height: 55px;
     border: none;
     border-bottom: 1px solid #ccc;
-    margin-bottom: 13px;
+    margin-bottom: 16px;
     font-size: 18px;
 }
 input::placeholder {
@@ -57,7 +58,22 @@ input:focus {
 }
 .pw-title{
     font-size: 13px;
-    color: #222;
-    margin-bottom: 2px;
+    color: #333;
+    margin-bottom: 9px;
 
+}
+.signup-btn{
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+    height: 54px;
+    background-color: #21C531;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+
+}
+.signup-btn:hover{
+    box-shadow: 0 2px 8px 0 rgba(33, 197, 49, .54);
 }

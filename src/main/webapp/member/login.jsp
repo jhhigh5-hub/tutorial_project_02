@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: leejihee
-  Date: 2025. 10. 28.
-  Time: 12:18
+  User: LG
+  Date: 25. 10. 28.
+  Time: 오후 5:00
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -20,26 +20,16 @@
     <div class="content">
         <form action="/member/signup" method="post">
             <div class="con-title">
-                회원가입
+                로그인
             </div>
-            <div class="signup-id">
+            <div class="login-id">
                 <input type="text" placeholder="아이디" name="id" id="id" onkeyup = "updateButtonState()" >
             </div>
-            <div class="signup-pw">
+            <div class="login-pw">
                 <input type="password" placeholder="비밀번호" name="pw" id="pw">
-                <p class="pw-title">6자 이상 대소문자, 숫자를 사용하세요.</p>
             </div>
-            <div class="signup-email">
-                <input type="text" placeholder="이메일" name="eamil" id="email">
-            </div>
-            <div class="signup-name">
-                <input type="text" placeholder="이름" name="name" id="name">
-            </div>
-            <div class="signup-nickname">
-                <input type="text" placeholder="닉네임" name="nickname" id="nickname">
-            </div>
-            <button class="signup-btn">
-                <p>회원가입하기</p>
+            <button class="login-btn">
+                <p>로그인하기</p>
             </button>
         </form>
     </div>

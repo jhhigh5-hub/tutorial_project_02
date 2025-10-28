@@ -12,4 +12,5 @@
     <select id="selectByNickname" resultType="Member" parameterType="String">
         select * from member where nickname = #{nickname}
     </select>
+
 </mapper>
