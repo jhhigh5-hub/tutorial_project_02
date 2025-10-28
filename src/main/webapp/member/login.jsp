@@ -36,7 +36,7 @@
                     <input type="checkbox" name="keepLogin" id="keepLogin" onchange="keepLoginConfirm();">
                 </div>
             </div>
-            <button type="submit" class="sign-btn" id="loginBt">
+            <button type="submit" class="signup-btn" id="loginBt">
                 <p>로그인</p>
             </button>
         </form>
