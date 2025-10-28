@@ -39,9 +39,19 @@ public class MemberSignUpServlet extends HttpServlet {
         int r = 0;
         Member foundId = sqlSession.selectOne("mappers.MemberMapper.selectById", id);
         Member foundNickname = sqlSession.selectOne("mappers.MemberMapper.selectByNickname", nickname);
-        if (id.matches("[a-zA-Z0-9]{4,15}") && pw.matches("(?=.*[a-z])(?=.*[0-9])[a-z0-9]{6,}")) {
+        if (id.matches("[a-zA-Z0-9]{4,15}") && pw.matches("(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}") && email.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")) {
             if (foundId == null && foundNickname == null) {
                 r = sqlSession.insert("mappers.MemberMapper.insertOne", member);
+            } else {
+                if (!id.matches("[a-zA-Z0-9]{4,15}")) {
+                    req.setAttribute("idFormatERR", "아이디는 특수문자를 사용할 수 없습니다.");
+                }
+                if (!pw.matches("(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}")) {
+                    req.setAttribute("pwFormatERR", "비밀번호는 영문자와 숫자를 포함하여 6자리 이상이어야 합니다.");
+                }
+                if (!email.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")) {
+                    req.setAttribute("emailFormatERR", "유효하지 않은 이메일 형식입니다.");
+                }
             }
         }
         if (r == 1) {
