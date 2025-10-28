@@ -12,6 +12,9 @@ img{
     height: 100%;
     object-fit: cover;
 }
+a{
+    text-decoration: none;
+}
 /* 회원가입 페이지 - signup */
 header{
 
@@ -85,10 +88,13 @@ input:focus {
     justify-content: space-between; /* 양쪽 끝 정렬 */
     align-items: center;            /* 세로 가운데 정렬 */
     margin-bottom: 15px;
+
 }
 .keepLogin-p{
     font-size: 13px;
     text-align: center;
+    color: #222;
+    cursor: pointer;
 }
 .checkbox-login{
     width: 20px;
@@ -112,4 +118,9 @@ input:focus {
        transform: scale(1.1);
        transform-origin: center;
     */
+}
+.text-center{
+    color: #222;
+    font-size: 13px;
+
 }

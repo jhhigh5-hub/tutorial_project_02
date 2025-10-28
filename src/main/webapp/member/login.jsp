@@ -30,7 +30,9 @@
             </div>
             <div class="keepLogin">
                 <div class="keepLogin-p">
+                    <label for="keepLogin">
                     로그인 상태 유지
+                    </label>
                 </div>
                 <div class="checkbox-login">
                     <input type="checkbox" name="keepLogin" id="keepLogin" onchange="keepLoginConfirm();">
@@ -41,7 +43,7 @@
             </button>
         </form>
         <p class="text-center">
-            아직 회원이 아니신가요? <a href="/member/signup" style="color: rgba(0,144,249, 0.8)">회원가입</a>
+            아직 회원이 아니신가요? <a href="/member/signup" style="color: rgba(0,144,249, 0.8); font-weight: 600">&nbsp;&nbsp; 회원가입</a>
         </p>
     </div>
 </main>
