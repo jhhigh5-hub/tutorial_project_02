@@ -1,0 +1,17 @@
+package com.example.tutorial.vo;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Setter
+@Getter
+public class Band {
+    int no;
+    String bandName;
+    String createrId;
+    LocalDateTime createAt;
+    String category;
+    String status;
+}
