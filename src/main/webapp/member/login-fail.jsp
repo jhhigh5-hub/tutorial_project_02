@@ -11,6 +11,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="/css/signup.css">
 </head>
+<body>
 <header>
     <div class="top-logo">
         <a href=""><img src="/img/band-b-logo.png" alt=""></a>
@@ -31,12 +32,16 @@
             <div class="keepLogin">
                 <div class="keepLogin-p">
                     <label for="keepLogin">
-                    로그인 상태 유지
+                        로그인 상태 유지
                     </label>
                 </div>
                 <div class="checkbox-login">
                     <input type="checkbox" name="keepLogin" id="keepLogin" onchange="keepLoginConfirm();">
                 </div>
+            </div>
+            <div class="login-fail">
+                <span class="fail-main">로그인 실패</span><br/>
+                <span class="fail-txt">아이디 또는 비밀번호가 틀렸습니다.</span>
             </div>
             <button type="submit" class="signup-btn" id="loginBt">
                 <p>로그인</p>

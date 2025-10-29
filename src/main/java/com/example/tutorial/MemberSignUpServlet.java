@@ -28,49 +28,81 @@ public class MemberSignUpServlet extends HttpServlet {
         String name = req.getParameter("name");
         String nickname = req.getParameter("nickname");
 
-        Member member = new Member();
-        member.setId(id);
-        member.setPw(pw);
-        member.setEmail(email);
-        member.setName(name);
-        member.setNickname(nickname);
+        req.setAttribute("id", id);
+        req.setAttribute("pw", pw);
+        req.setAttribute("email", email);
+        req.setAttribute("name", name);
+        req.setAttribute("nickname", nickname);
+        boolean isValid = true;
 
-        SqlSession sqlSession = MybatisUtil.build().openSession(true);
-        int r = 0;
-        Member foundId = sqlSession.selectOne("mappers.MemberMapper.selectById", id);
-        Member foundNickname = sqlSession.selectOne("mappers.MemberMapper.selectByNickname", nickname);
-        if (id.matches("[a-zA-Z0-9]{4,15}") && pw.matches("(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}") && email.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")) {
-            if (foundId == null && foundNickname == null) {
-                r = sqlSession.insert("mappers.MemberMapper.insertOne", member);
-            } else {
-                if (!id.matches("[a-zA-Z0-9]{4,15}")) {
-                    req.setAttribute("idFormatERR", "아이디는 특수문자를 사용할 수 없습니다.");
-                }
-                if (!pw.matches("(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}")) {
-                    req.setAttribute("pwFormatERR", "비밀번호는 영문자와 숫자를 포함하여 6자리 이상이어야 합니다.");
-                }
-                if (!email.matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")) {
-                    req.setAttribute("emailFormatERR", "유효하지 않은 이메일 형식입니다.");
-                }
-            }
+        if (!id.matches("[a-zA-Z0-9]{3,15}")) {
+            req.setAttribute("idFormatERR", "아이디는 4~15자리이거나, 특수문자를 사용할 수 없습니다.");
+            isValid = false;
         }
-        if (r == 1) {
-            req.setAttribute("nickname", nickname);
-            req.getRequestDispatcher("/member/signup-success.jsp").forward(req, resp);
-        } else {
-            req.setAttribute("id", id);
-            req.setAttribute("pw", pw);
-            req.setAttribute("email", email);
-            req.setAttribute("name", name);
-            req.setAttribute("nickname", nickname);
 
+        if (!pw.matches("(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}")) {
+            req.setAttribute("pwFormatERR", "비밀번호는 영문자와 숫자를 포함하여 6자리 이상이어야 합니다.");
+            isValid = false;
+        }
+
+        if (!email.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")) {
+            req.setAttribute("emailFormatERR", "유효하지 않은 이메일 형식입니다.");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            req.getRequestDispatcher("/member/signup-fail.jsp").forward(req, resp);
+            return;
+        }
+
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.build().openSession(true);
+
+            Member foundId = sqlSession.selectOne("mappers.MemberMapper.selectById", id);
+            Member foundNickname = sqlSession.selectOne("mappers.MemberMapper.selectByNickname", nickname);
+
+            boolean isDuplicated = false;
             if (foundId != null) {
                 req.setAttribute("idERR", "이미 사용중인 아이디 입니다.");
+                isDuplicated = true;
             }
             if (foundNickname != null) {
                 req.setAttribute("nicknameERR", "이미 사용중인 닉네임 입니다.");
+                isDuplicated = true;
             }
+
+            if (isDuplicated) {
+                req.getRequestDispatcher("/member/signup-fail.jsp").forward(req, resp);
+                return;
+            }
+
+            Member member = new Member();
+            member.setId(id);
+            member.setPw(pw);
+            member.setEmail(email);
+            member.setName(name);
+            member.setNickname(nickname);
+
+            int r = sqlSession.insert("mappers.MemberMapper.insertOne", member);
+
+            if (r == 1) {
+                req.setAttribute("nickname", nickname);
+                req.getRequestDispatcher("/main.jsp").forward(req, resp);
+            } else {
+                req.setAttribute("generalERR", "회원가입에 실패했습니다. 다시 시도해주세요.");
+                req.getRequestDispatcher("/member/signup-fail.jsp").forward(req, resp);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+            req.setAttribute("generalERR", "서버 오류로 인해 회원가입에 실패했습니다.");
             req.getRequestDispatcher("/member/signup-fail.jsp").forward(req, resp);
+        } finally {
+
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
         }
     }
 }
