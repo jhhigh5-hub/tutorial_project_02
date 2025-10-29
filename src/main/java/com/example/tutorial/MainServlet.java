@@ -25,6 +25,6 @@ public class MainServlet extends HttpServlet {
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
         List<Band> band = sqlSession.selectList("mappers.BandListMapper.selectBandList", longonUser.getId());
         req.setAttribute("band", band);
-        req.getRequestDispatcher("/main-top.jsp").forward(req,resp);
+        req.getRequestDispatcher("/main.jsp").forward(req,resp);
     }
 }
