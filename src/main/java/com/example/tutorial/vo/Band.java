@@ -13,5 +13,6 @@ public class Band {
     String createrId;
     LocalDateTime createAt;
     String category;
+    int memberCnt;
     String status;
 }

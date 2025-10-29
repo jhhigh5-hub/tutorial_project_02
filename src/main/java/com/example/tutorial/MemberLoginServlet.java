@@ -22,13 +22,13 @@ public class MemberLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        String password = req.getParameter("password");
+        String pw = req.getParameter("pw");
         String keepLogin = req.getParameter("keepLogin");
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
 
         Member found = sqlSession.selectOne("mappers.MemberMapper.selectById", id);
 
-        if (found != null && found.getPw().equals(password)) {
+        if (found != null && found.getPw().equals(pw)) {
             //===============================================================================
             if (keepLogin != null) {
                 Cookie cookie = new Cookie("keepLogin", id);
@@ -39,10 +39,10 @@ public class MemberLoginServlet extends HttpServlet {
             int r = sqlSession.insert("mappers.LoginHistoryMapper.insertOne", id);
             req.getSession().setAttribute("logonUser", found);
 
-            resp.sendRedirect("/index");
+            resp.sendRedirect("/main");
         } else {
             req.setAttribute("tryId", id);
-            req.getRequestDispatcher("/login-fail.jsp").forward(req, resp);
+            req.getRequestDispatcher("/member/login-fail.jsp").forward(req, resp);
         }
         sqlSession.close();
     }

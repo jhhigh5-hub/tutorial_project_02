@@ -3,7 +3,8 @@ package com.example.tutorial.vo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 @Setter @Getter
 public class BandJoinRequest {
@@ -11,5 +12,5 @@ public class BandJoinRequest {
     int bandNo;
     String memberId;
     String joinStatus;
-    LocalDate joinAt;
+    LocalDateTime joinAt;
 }

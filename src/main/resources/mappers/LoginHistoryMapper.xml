@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.LoginHistoryMapper">
-    <insert id="selectOne" parameterType="string">
-        insert into loginHistory(memberId) values=#{id}
+    <insert id="insertOne" parameterType="string">
+        insert into loginHistory(memberId) values(#{id})
     </insert>
     <select id="selectByMemberId" parameterType="string" resultType="LoginHistory">
         select * from loginHistory where memberId=#{id}
