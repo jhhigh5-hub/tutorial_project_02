@@ -11,6 +11,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="/css/signup.css">
 </head>
+<body>
 <header>
     <div class="top-logo">
         <a href=""><img src="/img/band-b-logo.png" alt=""></a>

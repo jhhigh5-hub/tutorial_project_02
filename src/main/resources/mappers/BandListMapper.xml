@@ -3,11 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.BandListMapper">
-    <select id="selectBandList" parameterType="String" resultType="Map">
-        select * from member join bandJoinRequest
-        on member.id = bandJoinRequest.memberId join band
-        on bandJoinRequest.bandNo = band.no
-        where member.id = #{id} and bandJoinRequest.joinStatus = 'approved';
+    <select id="selectBandList" parameterType="band" resultType="band">
+        select * from member join bandJoinRequest on member.id= bandJoinRequest.id join band on
+        bandJoinRequest.bandNo=band.no where member.id= #{id}and bandJoinRequest.joinStatus='approved';
     </select>
 
 </mapper>
