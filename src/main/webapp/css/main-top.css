@@ -18,7 +18,6 @@ a{
 /*메인 탑*/
 .top-head{
     height: 50px;
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
     margin: 0 auto;

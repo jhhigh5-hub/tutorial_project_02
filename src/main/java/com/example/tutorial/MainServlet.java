@@ -17,13 +17,13 @@ import java.util.List;
 public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Member longonUser = (Member) req.getSession().getAttribute("longonUser");
-        if(longonUser == null){
-            resp.sendRedirect("/login");
+        Member logonUser = (Member) req.getSession().getAttribute("logonUser");
+        if(logonUser == null){
+            resp.sendRedirect("/member/login");
             return;
         }
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
-        List<Band> band = sqlSession.selectList("mappers.BandListMapper.selectBandList", longonUser.getId());
+        List<Band> band = sqlSession.selectList("mappers.BandListMapper.selectBandList", logonUser.getId());
         req.setAttribute("band", band);
         req.getRequestDispatcher("/main.jsp").forward(req,resp);
     }
