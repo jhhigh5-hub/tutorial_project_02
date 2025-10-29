@@ -31,7 +31,7 @@
                 <p class="pw-title">6자 이상 대소문자, 숫자를 사용하세요.</p>
             </div>
             <div class="signup-email">
-                <input type="text" placeholder="이메일" name="eamil" id="email">
+                <input type="text" placeholder="이메일" name="email" id="email">
             </div>
             <div class="signup-name">
                 <input type="text" placeholder="이름" name="name" id="name">
