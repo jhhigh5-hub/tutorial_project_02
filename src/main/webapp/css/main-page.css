@@ -52,23 +52,27 @@ header{
 
 }
 .search-box {
-    display: flex;
     position: relative;
+    align-items: center;
+}
+.search-box form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 .search-box input{
-    flex: 0 1 auto;
     width: 289px;
     height: 28px;
     font-size: 12px;
     border-radius: 20px;
     border: 0.5px solid rgba(0, 0, 0, 0.5);
     padding: 0px 15px;
-
-
+    padding-right: 35px;
 }
 .search-box input:focus{
     outline: none;
-
 }
 .search-box input:focus::placeholder {
     color: #888; /* 원하는 색상으로 변경 */
@@ -79,6 +83,9 @@ header{
     transform: translateY(-50%);
     cursor: pointer;
 }
+
+
+
 .top-right-box{
     display: flex;
     justify-content: space-between;

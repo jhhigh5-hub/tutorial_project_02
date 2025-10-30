@@ -20,8 +20,10 @@
                 <a href=""><img src="/img/band-b-logo.png" alt=""></a>
             </div>
             <div class="search-box">
+                <form action="/search" method="post">
                 <input type="text" placeholder="밴드, 페이지, 게시글 검색">
                 <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
             </div>
         </div>
         <div class="top-right-box">

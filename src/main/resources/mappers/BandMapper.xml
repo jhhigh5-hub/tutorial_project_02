@@ -17,6 +17,11 @@
         r.bandNo = #{bandNo} and r.joinStatus = 'pending'
         oder by r.joinAt asc;
     </select>
+    <select id="selectKeywordByOffset" resultType="Band" parameterType="map">
+        select * from band
+        where title like #{keyword} or content like #{keyword}
+        order by wroteAt desc limit 10 offset #{offset}
+    </select>
     <update id="bandMemberCnt" parameterType="int">
         update band set memberCnt = memberCnt + 1 where no = #{bandNo}
     </update>

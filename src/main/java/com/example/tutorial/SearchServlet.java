@@ -1,6 +1,7 @@
 package com.example.tutorial;
 
 import com.example.tutorial.util.MybatisUtil;
+import com.example.tutorial.vo.Band;
 import com.example.tutorial.vo.Posts;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,7 +32,24 @@ public class SearchServlet extends HttpServlet {
 
         Map param = Map.of("offset", (page - 1) * 10,
                 "keyword", "%" + keyword + "%");
-        List<Posts> posts =
+        List<Band> band =
                 sqlSession.selectList("mappers.BandMapper.selectKeywordByOffset", param);
+
+
+        // int count = sqlSession.selectOne("mappers.ArticleMapper.countAll");
+        int count = sqlSession.selectOne("mappers.BandMapper.selectPendingBandJoinRequests",
+                "%"+keyword+"%");
+        int lastPage = count / 10 + (count % 10 > 0 ? 1 : 0);
+
+
+
+        req.setAttribute("lastPage", lastPage);
+        req.setAttribute("page", page);
+        req.setAttribute("count", count);
+        req.setAttribute("keyword", keyword);
+
+
+        req.getRequestDispatcher("/band.jsp").forward(req, resp);
+
     }
 }

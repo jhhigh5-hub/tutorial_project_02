@@ -13,7 +13,5 @@
 </head>
 <body>
 <%@include file="template/main-top.jspf"%>
-
-
 </body>
 </html>

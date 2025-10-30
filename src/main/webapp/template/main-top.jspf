@@ -20,12 +20,16 @@
                 <a href=""><img src="/img/band-w-logo.png" alt=""></a>
             </div>
             <div class="search-box">
-                <input type="text" placeholder="밴드, 페이지, 게시글 검색">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <form action="/search" method="post" class="search-box">
+                    <input type="text" name="keyword" placeholder="밴드, 페이지, 게시글 검색" value="${keyword}">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
             </div>
         </div>
         <div class="top-right-box">
-            <a href="/member/logout"><button class="top-logout">로그아웃</button></a>
+            <a href="/member/logout">
+                <button class="top-logout">로그아웃</button>
+            </a>
             <div class="topbtn">
                 <div class="top-new-post">
                     <a href="">
