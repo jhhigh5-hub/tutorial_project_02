@@ -7,10 +7,15 @@
         insert into band(no, createMaster, bandName, createAt, category, memberCnt, status)
         values(#{no}, #{createMaster}, #{bandName}, #{createAt}, #{category}, #{memberCnt}, #{status});
     </insert>
-    <select id="selectKeywordByOffset" resultType="Posts" parameterType="map">
-        select * from posts
-        where title like #{keyword} or content like #{keyword}
-        order by wroteAt desc limit 10 offset #{offset}
+    <select id="selectPendingBandJoinRequests" parameterType="int" resultType="BandJoinRequest">
+        select b.no as bandNo, b.bandName as bandName, r.idx, r.memberId,
+        m.nickname as memberNickname, r.joinStatus, r.joinAt
+        from
+        bandJoinRequest r inner join band b on r.bandNo = b.no
+        inner join member m on r.memberId = m.id
+        where
+        r.bandNo = #{bandNo} and r.joinStatus = 'pending'
+        oder by r.joinAt asc;
     </select>
     <update id="bandMemberCnt" parameterType="int">
         update band set memberCnt = memberCnt + 1 where no = #{bandNo}

@@ -36,7 +36,7 @@
                     </label>
                 </div>
                 <div class="checkbox-login">
-                    <input type="checkbox" name="keepLogin" id="keepLogin" onchange="keepLoginConfirm();">
+                    <input type="checkbox" name="keepLogin" id="keepLogin">
                 </div>
             </div>
             <button type="submit" class="signup-btn" id="loginBt">
