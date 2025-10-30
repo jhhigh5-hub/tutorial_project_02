@@ -9,13 +9,39 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/main-top.css">
     <link rel="stylesheet" href="/css/main-page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 <body>
+<header>
+    <div class="top-head">
+        <div class="top-left-box">
+            <div class="top-logo">
+                <a href=""><img src="/img/band-b-logo.png" alt=""></a>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="밴드, 페이지, 게시글 검색">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <div class="top-right-box">
+            <a href="/member/logout"><button class="top-logout">로그아웃</button></a>
+            <div class="topbtn">
+                <div class="top-new-post">
+                    <a href="">
+                        <i class="fa-solid fa-bell"></i>
+                    </a>
+                </div>
+                <div class="top-profile">
+                    <a href="">
+                        <i class="fa-solid fa-circle-user"></i>
+                    </a>
+                </div>
+            </div>
 
-<%@include file="/template/main-top.jspf"%>
+        </div>
+    </div>
+</header>
 <main>
     <div class="quick-link">
         <div class="quick-link-box">

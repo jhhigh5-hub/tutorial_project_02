@@ -15,8 +15,8 @@
 </head>
 <body>
 <%@ include file="/template/main-top.jspf" %>
-<div>
-
-</div>
+<div></div>
+<div></div>
+<div></div>
 </body>
 </html>
