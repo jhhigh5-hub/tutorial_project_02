@@ -70,35 +70,8 @@
                     <p>만들기</p>
                     </a>
                 </div>
-                <a href="/band/new">
-                <div class="newbox">
-                    <div class="plus-circle">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <p>만들기</p>
-                </div>
-                </a>
-                <div class="newbox">
-                    <div class="plus-circle">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <p>만들기</p>
-                </div>
-                <div class="newbox">
-                    <div class="plus-circle">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <p>만들기</p>
-                </div>
-                <div class="newbox">
-                    <div class="plus-circle">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <p>만들기</p>
-                </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 </body>

@@ -24,7 +24,7 @@
                 로그인
             </div>
             <div class="signup-id">
-                <input type="text" placeholder="아이디" name="id" id="id" onkeyup="updateButtonState()">
+                <input type="text" placeholder="아이디" name="id" id="id">
             </div>
             <div class="signup-pw">
                 <input type="password" placeholder="비밀번호" name="pw" id="pw">

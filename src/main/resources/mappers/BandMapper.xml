@@ -4,8 +4,8 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.BandMapper">
     <insert id="insertOne" parameterType="Band">
-        insert into band(no, createMaster, bandName, createAt, category, memberCnt, status)
-        values(#{no}, #{createMaster}, #{bandName}, #{createAt}, #{category}, #{memberCnt}, #{status});
+        insert into band(no, createMaster, bandName, category, memberCnt, status)
+        values(#{no}, #{createMaster}, #{bandName}, #{category}, #{memberCnt}, #{status});
     </insert>
     <select id="selectPendingBandJoinRequests" parameterType="int" resultType="BandJoinRequest">
         select b.no as bandNo, b.bandName as bandName, r.idx, r.memberId,
