@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="top-right-box">
-            <button class="top-logout">로그아웃</button>
+            <a href="/member/logout"><button class="top-logout">로그아웃</button></a>
             <div class="topbtn">
                 <div class="top-new-post">
                     <a href="">
@@ -42,12 +42,5 @@
         </div>
     </div>
 </header>
-<main>
-    <div class="quick-link">
-        <img src="img/b_cdhUd018svc1mx6nqputv6h3_s6p3uv.png" alt="">
-        <p>내가 찾는 기능 여기 다 있네 😍 궁금한 밴드 기능을 검색해보세요!</p>
-        <button class="quick-link-btn">바로가기</button>
-    </div>
-</main>
 </body>
 </html>
