@@ -1,5 +1,6 @@
 package com.example.tutorial;
 
+import com.example.tutorial.util.MybatisUtil;
 import com.example.tutorial.vo.Member;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.SqlSession;
-import com.example.tutorial.util.MybatisUtil;
+
 
 import java.io.IOException;
 

@@ -16,7 +16,7 @@
 <body>
 <%@ include file="/template/main-top.jspf" %>
 <div>
-
+<h2>밴드 만들기</h2>
 </div>
 </body>
 </html>

@@ -37,17 +37,21 @@
             </div>
             <div class="section-2">
                 <div class="newbox">
+                    <a href="/band/new">
                     <div class="plus-circle">
                         <i class="fa-solid fa-plus"></i>
                     </div>
                     <p>만들기</p>
+                    </a>
                 </div>
+                <a href="/band/new">
                 <div class="newbox">
                     <div class="plus-circle">
                         <i class="fa-solid fa-plus"></i>
                     </div>
                     <p>만들기</p>
                 </div>
+                </a>
                 <div class="newbox">
                     <div class="plus-circle">
                         <i class="fa-solid fa-plus"></i>
