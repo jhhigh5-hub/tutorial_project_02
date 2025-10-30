@@ -2,6 +2,7 @@ package com.example.tutorial;
 
 import com.example.tutorial.util.MybatisUtil;
 import com.example.tutorial.vo.Band;
+
 import com.example.tutorial.vo.Member;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -51,7 +52,7 @@ public class BandNewServlet extends HttpServlet {
         band.setBandName(bandName);
         band.setCategory(category);
         band.setMemberCnt(1);
-        band.setStatus("ACTIVE");
+
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
 

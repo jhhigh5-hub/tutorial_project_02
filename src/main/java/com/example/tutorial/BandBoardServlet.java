@@ -3,6 +3,7 @@ package com.example.tutorial;
 import com.example.tutorial.util.MybatisUtil;
 import com.example.tutorial.vo.Band;
 import com.example.tutorial.vo.Member;
+import com.example.tutorial.vo.Posts;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -63,8 +64,29 @@ public class BandBoardServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //
-        req.getRequestDispatcher("/band/bandDetail.jsp").forward(req, resp);
+        Member logonUser = (Member) req.getSession().getAttribute("logonUser");
+        String hashtag = req.getParameter("hashtag");
+        String content = req.getParameter("content");
+
+        if (content == null || content.trim().isEmpty()) {
+            req.setAttribute("error", "내용은 필수입니다.");
+            req.getParameter("no");
+            return;
+        }
+
+        Posts posts = new Posts();
+        posts.setWriterId(logonUser.getId());
+        posts.setHashtag(hashtag);
+        posts.setContent(content);
+
+        Band band = new Band();
+
+        SqlSession sqlSession = MybatisUtil.build().openSession(true);
+        int r = sqlSession.insert("mappers.BandMapper.insertOne", posts);
+
+        sqlSession.close();
+
+        resp.sendRedirect("/band/board?no=" + band.getNo());
     }
 
 }
