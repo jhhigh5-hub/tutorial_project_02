@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 public class Band {
     int no;
+    String createMaster;
     String bandName;
-    String createrId;
     LocalDateTime createAt;
     String category;
     int memberCnt;

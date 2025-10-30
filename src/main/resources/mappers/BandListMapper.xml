@@ -9,5 +9,4 @@
         on bandJoinRequest.bandNo = band.no
         where member.id= #{id} and bandJoinRequest.joinStatus='approved';
     </select>
-
 </mapper>
