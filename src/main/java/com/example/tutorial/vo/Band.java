@@ -14,5 +14,5 @@ public class Band {
     LocalDateTime createAt;
     String category;
     int memberCnt;
-    String status;
+
 }

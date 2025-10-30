@@ -23,7 +23,6 @@ a{
     margin: 0 auto;
     padding: 0px 230px;
     box-sizing: border-box;
-    margin-bottom: 70px;
     background-color: #424B52; /* 전체 상단 배경색 */
     color: #fff; /* 상단 안의 기본 글자색 */
     align-items: center;
@@ -88,4 +87,27 @@ a{
 }
 .top-logout:hover {
     background-color: #ddd;
+}
+
+.top-right-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.top-logout{
+    width: 100px;
+    height: 30px;
+    margin-right: 15px;
+    cursor: pointer;
+    border: none;
+    font-size: 13px;
+}
+.top-logout:hover{
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .2);
+}
+.topbtn{
+    display: flex;
+    font-size: 24px;
+    gap: 10px;
+    color: #888;
 }

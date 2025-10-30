@@ -49,7 +49,7 @@ public class SearchServlet extends HttpServlet {
         req.setAttribute("keyword", keyword);
 
 
-        req.getRequestDispatcher("/band.jsp").forward(req, resp);
+        req.getRequestDispatcher("/board.jsp").forward(req, resp);
 
     }
 }

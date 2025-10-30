@@ -3,10 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.BandMapper">
-    <insert id="insertOne" parameterType="Band">
-        insert into band(no, createMaster, bandName, category, memberCnt, status)
-        values(#{no}, #{createMaster}, #{bandName}, #{category}, #{memberCnt}, #{status});
+    <insert id="insertOne" parameterType="Band" useGeneratedKeys="true" keyProperty="no">
+        insert into band(createMaster, bandName, category, memberCnt, status)
+        values(#{createMaster}, #{bandName}, #{category}, #{memberCnt});
     </insert>
+
+
+    <select id="selectByNo" parameterType="int" resultType="band">
+        select * from band where no = #{no}
+    </select>
+
+
+
     <select id="selectPendingBandJoinRequests" parameterType="int" resultType="BandJoinRequest">
         select b.no as bandNo, b.bandName as bandName, r.idx, r.memberId,
         m.nickname as memberNickname, r.joinStatus, r.joinAt

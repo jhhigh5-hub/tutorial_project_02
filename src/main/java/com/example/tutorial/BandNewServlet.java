@@ -59,7 +59,7 @@ public class BandNewServlet extends HttpServlet {
             int r = sqlSession.insert("mappers.BandMapper.insertOne", band);
             if (r == 1) {
                 int generatedBandNo = band.getNo();
-                resp.sendRedirect("/band?no=" + generatedBandNo);
+                resp.sendRedirect("/band/board?no=" + generatedBandNo);
             } else {
                 resp.sendRedirect("/band/new");
             }

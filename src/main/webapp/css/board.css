@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+.nanum-gothic-regular {
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, p{
+    margin: 0;
+}
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+a{
+    text-decoration: none;
+}
+.header-line{
+    height: 30px;
+    background-color: #2C3239;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 230px;
+    box-sizing: border-box;
+    background-color: #eee;
+}
+.band-left{
+    width: 218px;
+    background-color: #fff;
+    border: 1px solid blue;
+}
+.band-images{
+    height: 80px;
+    background-color: palevioletred;
+}
+.band-name{
+    height: 30px;
+    background-color: coral;
+}
+.band-cnt{
+    height: 15px;
+    background-color: cadetblue;
+}
+.create-post-btn{
+    height: 30px;
+    width: 100%;
+    background-color: #2C3239;
+    color: #fff;
+}
+.band-main{
+    width: 830px;
+    background-color: #fff;
+    border: 1px solid deeppink;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+}
+.create-post-box{
+    height: 200px;
+    border: 1px solid red;
+}
+.bord{
+    height: 500px;
+    background-color: #333;
+}
