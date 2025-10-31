@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
     <title>Title</title>
@@ -72,6 +73,31 @@
                     <p>만들기</p>
                     </a>
                 </div>
+            </div>
+        </div>
+        <div class="section-2">
+            <div class="bandList">
+                <c:choose>
+                    <c:when test="${not empty band}">
+                        <c:forEach var="band" items="${band}">
+                            <div class="band-card">
+                                <a href="/band/board?bandNo=${band.no}">
+                                <div class="band-info">
+                                    <i class="fa-solid fa-users"/>
+                                </div>
+                                    <p class="band-name">${band.bandName}</p>
+                                    <p class="">마스터: ${band.createMaster}</p>
+                                </a>
+                                </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="band-item-card">
+                            <p>아직 가입한 밴드가 없어요.</p>
+                            <p>새로운 밴드를 만들거나 찾아보세요!</p>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>

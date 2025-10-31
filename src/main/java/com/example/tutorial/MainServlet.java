@@ -22,9 +22,16 @@ public class MainServlet extends HttpServlet {
             resp.sendRedirect("/member/login");
             return;
         }
-        SqlSession sqlSession = MybatisUtil.build().openSession(true);
-        List<Band> band = sqlSession.selectList("mappers.BandListMapper.selectBandList", logonUser.getId());
-        req.setAttribute("band", band);
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MybatisUtil.build().openSession();
+            List<Band> band = sqlSession.selectList("mappers.MemberMapper.selectBandList", logonUser.getId());
+            req.setAttribute("band", band);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            sqlSession.close();
+        }
         req.getRequestDispatcher("/main.jsp").forward(req,resp);
     }
 }

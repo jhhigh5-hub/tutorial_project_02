@@ -20,7 +20,7 @@
     <mappers>
         <mapper resource="mappers/MemberMapper.xml"/>
         <mapper resource="mappers/LoginHistoryMapper.xml"/>
-        <mapper resource="mappers/BandListMapper.xml"/>
         <mapper resource="mappers/BandMapper.xml"/>
+        <mapper resource="mappers/PostsMapper.xml"/>
     </mappers>
 </configuration>

@@ -51,7 +51,7 @@ public class BandNewServlet extends HttpServlet {
         band.setBandName(bandName);
         band.setCategory(category);
         band.setMemberCnt(1);
-        band.setStatus("ACTIVE");
+
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
 

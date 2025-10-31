@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.PostsMapper">
+    <insert id="insertOne" parameterType="Posts">
+        insert into posts(writerId, hashtag, content, viewCnt, likeCnt, commentCnt) values(#{writerId}, #{hashtag}, #{content}, #{viewCnt}, #{likeCnt}, #{commentCnt});
+    </insert>
+    <select id="selectAll" resultType="Posts">
+        select * from posts order by wroteAt desc
+    </select>
+    <select id="countAll" resultType="int">
+        select count(*) from posts
+    </select>
+    <!-- 검색 -->
+    <select id="countLikeKeyword" resultType="int">
+        select count(*) from posts where content like #{keyword} or hashtag like #{keyword}
+    </select>
+
+    <!-- 조회수(증가), 댓글(등록,삭제), 좋아요(등록,삭제) -->
+    <update id="updateViewCnt" parameterType="int">
+        update posts set viewCnt = viewCnt +1 where no = #{no}
+    </update>
+    <update id="increaseCommentCnt" parameterType="int">
+        update posts set commentCnt = commentCnt + 1 where no = #{no}
+    </update>
+    <update id="decreaseCommentCnt" parameterType="int">
+        update posts set commentCnt = commentCnt -1 where no = #{no}
+    </update>
+    <update id="increaseLikeCnt" parameterType="int">
+        update posts set likeCnt = likeCnt +1 where no = #{no}
+    </update>
+    <update id="decreaseLikeCnt" parameterType="int">
+        update posts set likeCnt = likeCnt -1 where no = #{no}
+    </update>
+
+    <!-- 게시글 수정 -->
+    <update id="updateOne" parameterType="Posts">
+        update posts set content = #{content}, hashtag = #{hashtag} where no = #{no}
+    </update>
+</mapper>
