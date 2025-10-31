@@ -22,5 +22,6 @@
         <mapper resource="mappers/LoginHistoryMapper.xml"/>
         <mapper resource="mappers/BandMapper.xml"/>
         <mapper resource="mappers/PostsMapper.xml"/>
+        <mapper resource="mappers/BandJoinRequest.xml"/>
     </mappers>
 </configuration>
