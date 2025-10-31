@@ -21,12 +21,12 @@
     <div class="container">
         <div class="band-left">
             <div class="band-images">
-                <c:if test="${not empty band.bandImagePath}">
+                <c:if test="${not empty band.bandImagePath}"> <%-- band.bandImagePath 값이 있다면 --%>
                     <img src="${pageContext.request.contextPath}${band.bandImagePath}"
                          alt="${band.bandName} 밴드 이미지"
                          style="max-width: 100%; height: auto; border-radius: 8px;">
                 </c:if>
-                <c:if test="${empty band.bandImagePath}">
+                <c:if test="${empty band.bandImagePath}"> <%-- band.bandImagePath 값이 없다면 --%>
                     <img src="${pageContext.request.contextPath}/img/default_band.png"
                          alt="기본 밴드 이미지"
                          style="max-width: 100%; height: auto; border-radius: 8px;">
