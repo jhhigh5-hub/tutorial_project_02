@@ -167,7 +167,6 @@ header{
 .section-1{
     background-color: #eee9;
     padding: 10px 0px;
-    height: 56vh;
 
 }
 .contain{
@@ -191,43 +190,71 @@ header{
 
 /* section-2 */
 .section-2{
-    display: flex;            /* 가로 배치 */
-    justify-content: space-between; /* 좌우 균등 간격 */
+    display: flex;
+    flex-wrap: wrap; /* 자동 줄바꿈 */
     align-items: center;      /* 세로 가운데 정렬 */
     gap: 20px;
     padding: 20px 0px;
 }
-.newbox {
-    flex: 1;
-    height: 200px;               /* 모든 newbox 균등 폭 */
-    text-align: center;
+
+/* 🟩 모든 박스(만들기 + 밴드카드) 공통 스타일 */
+.newbox,
+.band-card {
+    flex: 1 1 calc(20% - 20px); /* 한 줄에 최대 5개 */
+    max-width: calc(20% - 20px);
+    min-width: 180px;
+
+    height: 200px;              /* ✅ 높이 통일 */
     background-color: #fff;
     border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
-    display: flex;                  /* 내부 내용 Flex 적용 */
-    flex-direction: column;         /* 아이콘 위, 글자 아래 */
-    justify-content: center;        /* 세로 가운데 정렬 */
-    align-items: center;            /* 가로 가운데 정렬 */
-    gap: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
 }
-/* 원 모양 + 아이콘 */
+
+/* 🟢 hover 효과 통합 */
+.newbox:hover,
+.band-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ➕ newbox 내부 스타일 */
 .plus-circle {
     width: 60px;
     height: 60px;
-    border-radius: 50%;         /* 동그라미 */
-    background-color: #eee;  /* 배경색 */
+    border-radius: 50%;
+    background-color: #eee;
     display: flex;
     justify-content: center;
-    align-items: center;         /* + 아이콘 중앙 */
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .plus-circle i {
-    color: #888;                 /* 아이콘 색 */
-    font-size: 24px;             /* 아이콘 크기 */
-
+    color: #888;
+    font-size: 24px;
 }
-.newbox p{
+
+.newbox p {
     font-size: 17px;
     font-weight: 500;
+}
+
+/* 👥 밴드 카드 내부 글씨 */
+.band-name {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.band-card p {
+    font-size: 14px;
+    color: #666;
 }

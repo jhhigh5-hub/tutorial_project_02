@@ -73,7 +73,6 @@
                     <p>만들기</p>
                     </a>
                 </div>
-
                 <c:choose>
                     <c:when test="${not empty myJoinedBands}">
                         <c:forEach var="banditem" items="${myJoinedBands}">
