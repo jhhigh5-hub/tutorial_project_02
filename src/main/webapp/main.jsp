@@ -73,20 +73,17 @@
                     <p>만들기</p>
                     </a>
                 </div>
-            </div>
-        </div>
-        <div class="section-2">
-            <div class="bandList">
+
                 <c:choose>
-                    <c:when test="${not empty band}">
-                        <c:forEach var="band" items="${band}">
+                    <c:when test="${not empty myJoinedBands}">
+                        <c:forEach var="banditem" items="${myJoinedBands}">
                             <div class="band-card">
-                                <a href="/band/board?bandNo=${band.no}">
-                                <div class="band-info">
-                                    <i class="fa-solid fa-users"/>
+                                <a href="/band/board?no=${banditem.no}">
+                                <div class="band-info-icon">
+                                    <i class="fa-solid fa-users"></i>
                                 </div>
-                                    <p class="band-name">${band.bandName}</p>
-                                    <p class="">마스터: ${band.createMaster}</p>
+                                    <p class="band-name">${bandItem.bandName}</p>
+                                    <p class="">마스터: ${bandItem.createMaster}</p>
                                 </a>
                                 </div>
                         </c:forEach>
