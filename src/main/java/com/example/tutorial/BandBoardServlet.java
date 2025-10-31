@@ -2,6 +2,7 @@ package com.example.tutorial;
 
 import com.example.tutorial.util.MybatisUtil;
 import com.example.tutorial.vo.Band;
+import com.example.tutorial.vo.BandList;
 import com.example.tutorial.vo.Member;
 import com.example.tutorial.vo.Posts;
 import jakarta.servlet.ServletException;
@@ -49,6 +50,9 @@ public class BandBoardServlet extends HttpServlet {
             // (옵션) 밴드 멤버십 상태 확인 등 추가 로직
             // req.setAttribute("isBandMember", isMember);
 
+            // 해당 밴드의 게시글 목록을 가져옴
+            List<Posts> posts = sqlSession.selectList("mappers.PostsMapper.selectAll");
+            req.setAttribute("posts", posts);
 
         } catch (Exception e) {
             System.out.println(e);
