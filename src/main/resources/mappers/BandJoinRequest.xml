@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.BandJoinRequest">
+    <!-- 가입 신청 요청 -->
+    <insert id="insertBandJoinRequest" parameterType="BandJoinRequest" useGeneratedKeys="true" keyProperty="idx">
+        insert into bandJoinRequest(bandNo, memberId, joinStatus) values (#{bandNo}, #{memberId}, 'pending')
+    </insert>
+
+    <!-- 가입된 멤버인지 확인 -->
+    <select id="selectBandJoinStatus" parameterType="map" resultType="String">
+        select joinStatus from bandJoinRequest where bandNo = #{bandNo} and memberId = #{memberId}
+        order by joinAt desc limit 1
+    </select>
+
+    <!-- 요청 대기 상태 -->
+    <select id="selectPendingJoinRequestByBandNo" parameterType="int" resultType="BandJoinRequest">
+        select br.idx, br.bandNo, br.memberId, br.joinStatus, br.joinAt, m.nickname as memberNicname
+        from bandJoinRequest br
+        inner join member m on br.memberId = m.id
+        where br.bandNo = #{bandNo} and br.joinStatus = 'pending'
+        order by br.join At asc
+    </select>
+
+    <!-- 가입 요청 처리 (승인 또는 거절) -->
+    <update id="updateBandJoinRequestStaus" parameterType="map">
+        update bandJoinRequest set joinStatus = #{joinStatus} where idx = #{idx}
+        and bandNo = #{bandNo} and joinStatus = 'pending'
+    </update>
+
+    <!-- 밴드 맴버 카운트 업데이트 -->
+    <update id="increaseBandMemberCnt" parameterType="int">
+        update band set memberCnt = memberCnt + 1 where no = #{bandNo}
+    </update>
+</mapper>
