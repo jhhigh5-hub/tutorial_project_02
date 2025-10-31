@@ -32,22 +32,27 @@ a{
     border: 1px solid blue;
 }
 .band-images{
-    height: 80px;
+    height: 100px;
     background-color: palevioletred;
 }
 .band-name{
-    height: 30px;
+    height: 40px;
     background-color: coral;
+    font-weight: 600;
+    line-height: 40px;
 }
 .band-cnt{
-    height: 15px;
+    height: 25px;
     background-color: cadetblue;
+    font-size: 12px;
+    line-height: 25px;
 }
 .create-post-btn{
-    height: 30px;
+    height: 35px;
     width: 100%;
     background-color: #2C3239;
     color: #fff;
+    cursor: pointer;
 }
 .band-main{
     width: 830px;
@@ -61,6 +66,9 @@ a{
 .create-post-box{
     border: 1px solid red;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.btn{
+    cursor: pointer;
 }
 .create-post-box input{
     width: 100%;
