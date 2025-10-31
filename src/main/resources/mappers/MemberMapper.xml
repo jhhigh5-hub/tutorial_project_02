@@ -12,11 +12,4 @@
     <select id="selectByNickname" resultType="Member" parameterType="String">
         select * from member where nickname = #{nickname}
     </select>
-
-    <!-- 가입 상태인 밴드 불러오기 -->
-    <select id="selectBandList" parameterType="String" resultType="Band">
-        select * from band join bandJoinRequest on band.no = bandJoinRequest.bandNo
-        where bandJoinRequest.memberId = #{_parameter} and bandJoinRequest.joinStatus = 'approved'
-        or band.createMaster = #{_parameter}
-    </select>
 </mapper>

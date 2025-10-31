@@ -17,4 +17,12 @@
         where title like #{keyword} or content like #{keyword}
         order by wroteAt desc limit 10 offset #{offset}
     </select>
+
+    <!-- 가입 상태인 밴드 불러오기 -->
+    <select id="selectBandList" resultType="Band">
+        select band.* from band join bandJoinRequest on band.no = bandJoinRequest.bandNo
+        where bandJoinRequest.memberId = #{_parameter} and bandJoinRequest.joinStatus = 'approved'
+        union
+        select * from band where createMaster = #{_parameter}
+    </select>
 </mapper>
