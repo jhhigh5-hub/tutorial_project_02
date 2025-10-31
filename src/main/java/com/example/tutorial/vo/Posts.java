@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Setter @Getter
 public class Posts {
     int no;
+    int bandNo;
     String writerId;
     String hashtag;
     String content;
@@ -15,4 +16,5 @@ public class Posts {
     int viewCnt;
     int likeCnt;
     int commentCnt;
+
 }

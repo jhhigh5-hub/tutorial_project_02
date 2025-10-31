@@ -13,11 +13,14 @@ import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @WebServlet("/band/board")
 public class BandBoardServlet extends HttpServlet {
+    private static final int POSTS_PER_PAGE = 10;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 로그인 유저 정보 가져오기
@@ -49,6 +52,31 @@ public class BandBoardServlet extends HttpServlet {
             // (옵션) 밴드 멤버십 상태 확인 등 추가 로직
             // req.setAttribute("isBandMember", isMember);
 
+            // 게시글 목록 및 페이지네이션 처리
+            int page = req.getParameter("page") != null ? Integer.parseInt(req.getParameter("page")) : 1;
+            // 총 게시글 수 조회
+            int totalPostsCount = sqlSession.selectOne("mappers.PostsMapper.countAllByBandNo", bandNo);
+
+            int lastPage = totalPostsCount / POSTS_PER_PAGE;
+            if (totalPostsCount % POSTS_PER_PAGE > 0) {
+                lastPage++;
+            }
+            if (page < 1) page = 1;
+            if (page > lastPage && lastPage > 0) page = lastPage;
+
+            int offset = (page -1) * POSTS_PER_PAGE;
+
+            Map<String, Object> postsParam = new HashMap<>();
+            postsParam.put("bandNo", bandNo);
+            postsParam.put("offset", offset);
+            postsParam.put("amount", POSTS_PER_PAGE);
+
+            List<Posts> postsList = sqlSession.selectList("mappers.PostsMapper.selectAllByBanNo", postsParam);
+
+            req.setAttribute("postsList", postsList);
+            req.setAttribute("totalPostsCount", totalPostsCount);
+            req.setAttribute("lastPage", lastPage);
+            req.setAttribute("currentPage", page);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -61,6 +89,7 @@ public class BandBoardServlet extends HttpServlet {
         }
         req.getRequestDispatcher("/band/board.jsp").forward(req, resp);
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
