@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Title</title>
@@ -32,15 +34,53 @@
                     <!-- 현재 밴드 번호를 숨겨서 보냄 -->
                     <input type="hidden" name="bandNo" value="">
                     <!-- 게시글 제목 입력 필드 추가 -->
-                    <input type="text" name="title" placeholder="#태그 검색" required value="${band.category}">
-                    <textarea name="content" placeholder="글 내용을 입력하세요." rows="50"></textarea>
+                    <input type="text" name="title" placeholder="#태그 검색" required value="${band.hashtag}">
+                    <textarea name="content" placeholder="글 내용을 입력하세요." rows="20"></textarea>
+                    <input type="text" name="title" placeholder="" required value="${band.category}">
                     <div class="post-actions">
                         <!-- '등록하기' div를 submit 버튼으로 변경! -->
                         <button type="submit" class="btn">게시</button>
                     </div>
                 </form>
             </div>
-            <div class="bord"></div>
+            <div class="bord">
+                <c:choose>
+                    <c:when test="${not empty postsList}">
+                        <c:forEach var="post" items="${postsList}">
+                            <div class="post-item">
+                                <div class="post-header">
+                                    <span class="post-writer">${post.writerId}</span>
+                                    <span class="post-date">${fn:replace(post.wroteAt, 'T', ' ')}</span>
+                                </div>
+                                <div class="post-content">
+                                        ${post.content}
+                                </div>
+                                <c:if test="${not empty post.hashtag}">
+                                    <div class="post-hashtag">#${post.hashtag}</div>
+                                </c:if>
+                            </div>
+                            <hr>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <p>아직 게시글이 없습니다. 첫 글을 작성해보세요!</p>
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${lastPage > 1}">
+                    <div class="pagination">
+                        <c:forEach var="i" begin="1" end="${lastPage}">
+                            <c:choose>
+                                <c:when test="${i == currentPage}">
+                                    <span class="current-page">${i}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/band/board?no=${band.no}&page=${i}" class="page-link">${i}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </div>
+                </c:if>
+            </div>
         </div>
     </div>
 </main>
