@@ -32,20 +32,23 @@ a{
     border: 1px solid blue;
 }
 .band-images{
-    height: 100px;
+    height: 220px;
     background-color: palevioletred;
+    margin-bottom: 5px;
 }
 .band-name{
-    height: 40px;
-    background-color: coral;
+    height: 50px;
     font-weight: 600;
-    line-height: 40px;
+    line-height: 50px;
+    margin-left: 3px;
+    font-size: 20px;
 }
-.band-cnt{
+.band-inform{
     height: 25px;
-    background-color: cadetblue;
     font-size: 12px;
     line-height: 25px;
+    margin-left: 3px;
+    margin-bottom: 7px;
 }
 .create-post-btn{
     height: 35px;
@@ -53,6 +56,10 @@ a{
     background-color: #2C3239;
     color: #fff;
     cursor: pointer;
+}
+.create-post-btn:hover{
+    background-color: #3A414A;
+    transition: background-color 0.2s ease;
 }
 .band-main{
     width: 830px;

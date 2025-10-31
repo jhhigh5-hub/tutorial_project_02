@@ -20,11 +20,22 @@
 <main>
     <div class="container">
         <div class="band-left">
-            <div class="band-images"></div>
+            <div class="band-images">
+                <c:if test="${not empty band.bandImagePath}">
+                    <img src="${pageContext.request.contextPath}${band.bandImagePath}"
+                         alt="${band.bandName} 밴드 이미지"
+                         style="max-width: 100%; height: auto; border-radius: 8px;">
+                </c:if>
+                <c:if test="${empty band.bandImagePath}">
+                    <img src="${pageContext.request.contextPath}/img/default_band.png"
+                         alt="기본 밴드 이미지"
+                         style="max-width: 100%; height: auto; border-radius: 8px;">
+                </c:if>
+            </div>
             <div class="band-name">${band.bandName}</div>
             <div class="band-inform">
-                방장: ${band.createMaster}
-                멤버수: ${band.memberCnt}
+                <i class="fa-solid fa-crown"></i> 방장: ${band.createMaster}&ensp;
+                <i class="fa-solid fa-user-group"></i> 멤버수: ${band.memberCnt}
             </div>
             <button class="create-post-btn" id="create-post-btn" onclick="this">글쓰기</button>
         </div>
