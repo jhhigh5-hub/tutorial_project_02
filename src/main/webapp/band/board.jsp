@@ -34,7 +34,7 @@
                     <!-- 현재 밴드 번호를 숨겨서 보냄 -->
                     <input type="hidden" name="bandNo" value="">
                     <!-- 게시글 제목 입력 필드 추가 -->
-                    <input type="text" name="title" placeholder="#태그 검색" required value="${band.hashtag}">
+                    <input type="text" name="title" placeholder="#태그 검색" value="">
                     <textarea name="content" placeholder="글 내용을 입력하세요." rows="20"></textarea>
                     <input type="text" name="title" placeholder="" required value="${band.category}">
                     <div class="post-actions">
