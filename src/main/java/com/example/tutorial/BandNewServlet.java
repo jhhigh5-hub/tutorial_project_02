@@ -4,6 +4,7 @@ import com.example.tutorial.util.MybatisUtil;
 import com.example.tutorial.vo.Band;
 
 import com.example.tutorial.vo.Member;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,8 +12,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.SqlSession;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 @WebServlet("/band/new")
 public class BandNewServlet extends HttpServlet {
@@ -47,11 +53,42 @@ public class BandNewServlet extends HttpServlet {
             return;
         }
 
+        String randomImgPath = "/img/default_band.png";
+        ServletContext context = getServletContext();
+        String imageFolderPath = context.getRealPath("/img/bandimg");
+
+        File folder = new File(imageFolderPath);
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.err.println("Warning: img 폴더를 찾을 수 없거나 유효하지 않습니다: " + imageFolderPath);
+        } else {
+            File[] files = folder.listFiles();
+            List<String> imageFileNames = new ArrayList<>();
+            if (files != null && files.length > 0) {
+                for (File file : files) {
+                    String fileName = file.getName().toLowerCase();
+                    if(file.isFile() && !file.isHidden() && (fileName.endsWith(".png")
+                            || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")
+                            || fileName.endsWith(".gif"))) {
+                                imageFileNames.add(file.getName());
+                    }
+                }
+            }
+            if (imageFileNames.isEmpty()) {
+                System.err.println("Warning: img 폴더에 유효한 이미지 파일이 없습니다.");
+            } else {
+                Random random = new Random();
+                int randomIdx = random.nextInt(imageFileNames.size());
+                String selectedImageName = imageFileNames.get(randomIdx);
+                randomImgPath = "/img/bandimg" + selectedImageName;
+            }
+        }
+
         Band band = new Band();
         band.setCreateMaster(logonUser.getId());
         band.setBandName(bandName);
         band.setCategory(category);
         band.setMemberCnt(1);
+        band.setBandImgPath(randomImgPath);
 
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
