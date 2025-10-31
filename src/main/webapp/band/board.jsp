@@ -19,9 +19,12 @@
     <div class="container">
         <div class="band-left">
             <div class="band-images"></div>
-            <div class="band-name"></div>
-            <div class="band-cnt"></div>
-            <button class="create-post-btn">글쓰기</button>
+            <div class="band-name">${band.bandName}</div>
+            <div class="band-inform">
+                방장: ${band.createMaster}
+                멤버수: ${band.memberCnt}
+            </div>
+            <button class="create-post-btn" id="create-post-btn" onclick="this">글쓰기</button>
         </div>
         <div class="band-main">
             <div class="create-post-box">
@@ -29,7 +32,7 @@
                     <!-- 현재 밴드 번호를 숨겨서 보냄 -->
                     <input type="hidden" name="bandNo" value="">
                     <!-- 게시글 제목 입력 필드 추가 -->
-                    <input type="text" name="title" placeholder="#태그 검색" required>
+                    <input type="text" name="title" placeholder="#태그 검색" required value="${band.category}">
                     <textarea name="content" placeholder="글 내용을 입력하세요." rows="50"></textarea>
                     <div class="post-actions">
                         <!-- '등록하기' div를 submit 버튼으로 변경! -->
@@ -41,7 +44,18 @@
         </div>
     </div>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const createPostBtn = document.getElementById('create-post-btn');
+        const contentTextarea = document.querySelector('textarea[name="content"]'); // content라는 name을 가진 textarea
 
+        if (createPostBtn && contentTextarea) {
+            createPostBtn.addEventListener('click', function() {
+                contentTextarea.focus(); // 캬~ 이게 핵심이지!
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
