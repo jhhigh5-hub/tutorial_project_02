@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+/* 기본 리셋 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 h1, h2, h3, h4, p {
     margin: 0;
 }
@@ -19,33 +26,40 @@ li {
     list-style: none;
 }
 
-ul {
+a {
+    color: inherit;
     text-decoration: none;
 }
 
-a {
-    color: inherit;
-    text-decoration-line: blink;
-}
-
+/* ------------------------------
+   전체 배경 및 폰트
+------------------------------ */
 body {
     background-color: #f6f8fa;
+    font-family: "Nanum Gothic", sans-serif;
+    overflow: hidden; /* ✅ 스크롤 완전 제거 */
+    height: 100vh;    /* ✅ 전체 화면 높이 기준 */
 }
 
-/*
-메인페이지 상단
- */
+/* ------------------------------
+   헤더
+------------------------------ */
+header {
+    height: 68px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+}
+
 header .top {
+    width: 100%;
+    max-width: 1100px;
     display: flex;
     justify-content: space-between;
-    height: 68px;
     align-items: center;
-    padding: 0px 20px;
-}
-
-
-header .top-logo {
-
+    padding: 0 20px;
 }
 
 header .top-logo img {
@@ -54,104 +68,130 @@ header .top-logo img {
 }
 
 header .top-button {
-    height: 60px;
-    width: 200px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 15px;
+}
+
+header .top-signup-button a,
+header .top-login-button a {
+    display: block;
+    width: 100px;
     text-align: center;
-    cursor: pointer;
-}
-
-header .top-signup-button {
-    width: 100px;
-
-}
-
-header .top-login-button {
+    padding: 11px 0;
+    border-radius: 6px;
     font-weight: 600;
+    font-size: 14px;
+}
+
+header .top-signup-button a {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+header .top-signup-button a:hover {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+}
+
+header .top-login-button a {
     color: #fff;
-    padding: 11px;
-    width: 100px;
     background-color: #21C531;
 }
 
-header .top-login-button:hover {
-    box-shadow: 0 2px 8px 0 rgba(33, 197, 49, .54);
+header .top-login-button a:hover {
+    box-shadow: 0 2px 8px rgba(33, 197, 49, .54);
 }
 
-/*
-메인페이지 메인
- */
+/* ------------------------------
+   메인
+------------------------------ */
 main {
-    height: 90vh;
+    height: calc(100vh - 68px); /* 헤더 높이 제외 */
+    display: flex;
+    justify-content: center; /* 가로 가운데 */
+    align-items: center;     /* 세로 가운데 */
     margin: 0 auto;
-    align-content: center;
+    overflow: hidden;        /* 스크롤 안 나오게 */
 }
 
 .main {
     display: flex;
     justify-content: center;
-    gap: 60px;
+    align-items: center;
+    gap: 60px;               /* 좌우 간격 */
+    max-width: 1200px;
+    width: 100%;
+    height: 100%;
+}
+/* 이미지 영역 */
+.main-left {
+    width: 480px;
+    height: 620px;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
-
-main .main-left {
-    width: 540px;
-    height: 700px;
+.main-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 비율 유지하면서 꽉 차게 */
+    border-radius: 8px;
 }
-
+/* 텍스트 영역 */
 .main-right {
-    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
-.main-login {
-
-}
-
+/* 텍스트 */
 .main-text-box h2 {
     font-size: 48px;
-    font-weight: 500;
+    font-weight: 600;
     color: #222;
     margin-bottom: 15px;
+    line-height: 1.4;
 }
 
 .main-text-box p {
     margin-bottom: 30px;
     font-size: 16px;
-    font-weight: 400;
     color: #444;
 }
 
+/* 버튼 */
 .main-btn {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 100%;
 }
 
-.main-login {
+.main-btn button {
     width: 100%;
     height: 54px;
-    background-color: #21C531;
+    border-radius: 8px;
     border: none;
     font-size: 16px;
     font-weight: 500;
-    color: #fff;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
+
+.main-login {
+    background-color: #21C531;
+    color: #fff;
+}
+
 .main-login:hover {
-    box-shadow: 0 2px 8px 0 rgba(33, 197, 49, .54);
+    box-shadow: 0 2px 8px rgba(33, 197, 49, .54);
 }
 
 .main-signup {
-    width: 100%;
-    height: 54px;
-    border: none;
-    font-size: 16px;
     background-color: #fff;
-    cursor: pointer;
+    border: 1px solid #ddd;
 }
 
 .main-signup:hover {
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .15);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
 }

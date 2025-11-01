@@ -41,9 +41,9 @@
                     </a>
                 </div>
             </div>
-
         </div>
     </div>
+    <div class="top-head-border"></div>
 </header>
 <main>
     <div class="quick-link">

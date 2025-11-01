@@ -103,19 +103,24 @@ public class BandBoardServlet extends HttpServlet {
             return;
         }
 
+        int bandNo = Integer.parseInt(req.getParameter("bandNo"));
+
         Posts posts = new Posts();
         posts.setWriterId(logonUser.getId());
         posts.setHashtag(hashtag);
         posts.setContent(content);
+        posts.setBandNo(bandNo);
 
-        Band band = new Band();
+
+
+
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
         int r = sqlSession.insert("mappers.BandMapper.insertOne", posts);
 
         sqlSession.close();
 
-        resp.sendRedirect("/band/board?no=" + band.getNo());
+        resp.sendRedirect("/band/board?no=" + bandNo);
     }
 
 }

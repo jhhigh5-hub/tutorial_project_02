@@ -5,7 +5,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Setter @Getter
+@Setter
+@Getter
 public class Posts {
     int no;
     int bandNo;
