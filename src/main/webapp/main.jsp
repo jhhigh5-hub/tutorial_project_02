@@ -78,11 +78,12 @@
                         <c:forEach var="banditem" items="${myJoinedBands}">
                             <div class="band-card">
                                 <a href="/band/board?no=${banditem.no}">
-                                <div class="band-info-icon">
-                                    <i class="fa-solid fa-users"></i>
-                                </div>
                                     <p class="band-name">${banditem.bandName}</p>
-                                    <p class="">마스터명: ${banditem.createMaster}</p>
+                                    <div class="band-info">
+                                        <p>👑 방장: <span>${banditem.createMaster}</span></p>
+                                        <p>👥 멤버수: <span>${banditem.memberCnt}</span></p>
+
+                                    </div>
                                 </a>
                                 </div>
                         </c:forEach>

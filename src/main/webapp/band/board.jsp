@@ -12,12 +12,13 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 
 </head>
 <body>
 <%@ include file="/template/main-top.jspf" %>
 <main>
-<div class="header-line"></div>
+    <div class="header-line"></div>
     <div class="container">
         <div class="band-left">
             <div class="band-images">
@@ -25,13 +26,14 @@
             </div>
             <div class="band-name">${band.bandName}</div>
             <div class="band-inform">
-                <i class="fa-solid fa-crown"></i> 방장: ${band.createMaster}&ensp;
-                <i class="fa-solid fa-user-group"></i> 멤버수: ${band.memberCnt}
+                <p>👑 방장: ${band.createMaster}</p>
+                <p>👥 멤버수: ${band.memberCnt}</p>
             </div>
             <div class="band-action">
                 <c:choose>
                     <c:when test="${userBandStatus == 'MASTER'}">
-                        <a href="${pageContext.request.contextPath}/band/join-request-manage?no=${band.no}" class="btn btn-warning">회원 관리</a>
+                        <a href="${pageContext.request.contextPath}/band/join-request-manage?no=${band.no}"
+                           class="btn btn-warning">회원 관리</a>
                     </c:when>
                     <c:when test="${userBandStatus == 'JOINED'}">
                         <button class="create-post-btn" id="create-post-btn" onclick="writeHandle();">글쓰기</button>
@@ -42,7 +44,7 @@
                     <c:when test="${userBandStatus == 'NONE_JOINED' || userBandStatus == 'REJECTED'}">
                         <form action="/band/join-request" method="post" onsubmit="joinHandle(event);">
                             <input type="hidden" value="${band.no}" name="bandNo"/>
-                            <button type="submit" class="btn btn-success" id="joinBandBtn" >
+                            <button type="submit" class="btn btn-success" id="joinBandBtn">
                                 밴드 가입 신청
                             </button>
                         </form>
@@ -78,7 +80,10 @@
                         <c:forEach var="post" items="${postsList}">
                             <div class="post-item">
                                 <!-- 게시글 내용 -->
-                                <div class="post-header">${post.writerId}</div>
+                                <div class="post-header">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                        ${post.writerId}
+                                </div>
                                 <div class="post-content">${post.content}</div>
                                 <div class="post-hashtag">＃${post.hashtag}</div>
 
@@ -102,7 +107,8 @@
                                         </form>
 
                                         <!-- 댓글쓰기 버튼 -->
-                                        <button type="button" class="toggle-comment-btn commentBtn" data-postno="${post.no}">
+                                        <button type="button" class="toggle-comment-btn commentBtn"
+                                                data-postno="${post.no}">
                                             💬 댓글쓰기
                                         </button>
                                     </div>
@@ -122,11 +128,14 @@
 
                                 <!-- 댓글 작성 폼 -->
                                 <c:if test="${auth}">
-                                    <form action="/band/comment" method="post" class="comment-form" id="comment-form-${post.no}" style="display:none;">
+                                    <form action="/band/comment" method="post" class="comment-form"
+                                          id="comment-form-${post.no}" style="display:none;">
                                         <input type="hidden" name="bandNo" value="${band.no}">
                                         <input type="hidden" name="postNo" value="${post.no}">
                                         <textarea name="content" placeholder="댓글을 입력하세요"></textarea>
-                                        <button type="submit">등록</button>
+                                        <div class="button-wrap">
+                                            <button type="submit">등록</button>
+                                        </div>
                                     </form>
                                 </c:if>
                             </div>
@@ -136,7 +145,6 @@
                         <p class="no-posts">아직 게시글이 없습니다. 첫 글을 작성해보세요!</p>
                     </c:otherwise>
                 </c:choose>
-
 
 
                 <!-- 페이지네이션 -->
@@ -166,14 +174,14 @@
     }
 
     function joinHandle(event) {
-        if(!window.confirm("가입신청하시겠습니까?"))  {
+        if (!window.confirm("가입신청하시겠습니까?")) {
             event.preventDefault();
         }
     }
 
     // 댓글쓰기 버튼 클릭 시 폼 나타나기/숨기기
     document.querySelectorAll('.toggle-comment-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const postNo = this.dataset.postno;
             const form = document.getElementById('comment-form-' + postNo);
             if (form.style.display === 'none') {
