@@ -21,8 +21,8 @@
                 <a href=""><img src="/img/band-b-logo.png" alt=""></a>
             </div>
             <div class="search-box">
-                <form action="/search" method="post">
-                <input type="text" placeholder="밴드, 페이지, 게시글 검색">
+                <form action="/search" method="get">
+                <input type="text" placeholder="밴드, 페이지, 게시글 검색" name="keyword">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 </form>
             </div>

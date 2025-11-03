@@ -2,6 +2,7 @@ package com.example.tutorial;
 
 import com.example.tutorial.util.MybatisUtil;
 import com.example.tutorial.vo.Band;
+import com.example.tutorial.vo.BandJoinRequest;
 import com.example.tutorial.vo.Member;
 import com.example.tutorial.vo.Posts;
 import jakarta.servlet.ServletException;
@@ -51,6 +52,36 @@ public class BandBoardServlet extends HttpServlet {
 
             // (옵션) 밴드 멤버십 상태 확인 등 추가 로직
             // req.setAttribute("isBandMember", isMember);
+
+
+            // userBandStatus 로직 추가
+            String userBandStatus = "GUEST";
+            if (logonUser.getId().equals(band.getCreateMaster())) {
+                userBandStatus = "MASTER";
+            } else {
+                Map<String, Object> params = new HashMap<>();
+                params.put("bandNo", bandNo);
+                params.put("memberId", logonUser.getId());
+                BandJoinRequest existingRequest = sqlSession.selectOne("mappers.BandJoinRequestMapper.selectBandJoinStatus", params);
+
+                if (existingRequest != null) {
+                    if ("pending".equals(existingRequest.getJoinStatus())) {
+                        userBandStatus = "PENDING"; // 가입 신청 대기중
+                    } else if ("approved".equals(existingRequest.getJoinStatus())) {
+                        userBandStatus = "JOINED"; // 승인 완료
+                    } else if ("rejected".equals(existingRequest.getJoinStatus())) {
+                        // 거절 상태면 재신청 가능하게 'NONE_JOINED'로 처리할 수도 있고,
+                        // 'REJECTED' 상태로 jsp에 표시해서 재신청 불가하게 할 수도 있음.
+                        // 여기서는 재신청 가능하도록 'NONE_JOINED'로 처리
+                        userBandStatus = "NONE_JOINED";
+                    }
+                } else {
+                    // 3. band_member 테이블에 직접 가입되어 있는지 확인 (가입 요청 없이 바로 가입된 경우)
+                    // 이 부분은 band_member테이블이 잇다면 추가해야함.
+                    userBandStatus = "NONE_JOINED";
+                }
+            }
+            req.setAttribute("userBandStatus", userBandStatus);
 
             // 게시글 목록 및 페이지네이션 처리
             int page = req.getParameter("page") != null ? Integer.parseInt(req.getParameter("page")) : 1;
@@ -110,10 +141,6 @@ public class BandBoardServlet extends HttpServlet {
         posts.setHashtag(hashtag);
         posts.setContent(content);
         posts.setBandNo(bandNo);
-
-
-
-
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
         int r = sqlSession.insert("mappers.BandMapper.insertOne", posts);

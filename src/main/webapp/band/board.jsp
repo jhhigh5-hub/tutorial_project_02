@@ -28,7 +28,32 @@
                 <i class="fa-solid fa-crown"></i> 방장: ${band.createMaster}&ensp;
                 <i class="fa-solid fa-user-group"></i> 멤버수: ${band.memberCnt}
             </div>
-            <button class="create-post-btn" id="create-post-btn" onclick="this">글쓰기</button>
+            <div class="band-action">
+                <c:choose>
+                    <c:when test="${userBandStatus == 'MASTER'}">
+                        <a href="${pageContext.request.contextPath}/band/approve-request?bandNo=${band.no}" class="btn btn-warning">회원 관리</a>
+                    </c:when>
+                    <c:when test="${userBandStatus == 'JOINED'}">
+                        <button class="create-post-btn" id="create-post-btn" onclick="writeHandle();">글쓰기</button>
+                    </c:when>
+                    <c:when test="${userBandStatus == 'PENDING'}">
+                        <button class="btn btn-secondary" disabled>가입 신청 대기중</button>
+                    </c:when>
+                    <c:when test="${userBandStatus == 'NONE_JOINED' || userBandStatus == 'REJECTED'}">
+                        <form action="/band/join-request" method="post" onsubmit="joinHandle(event);">
+                            <input type="hidden" value="${band.no}" name="bandNo"/>
+                            <button type="submit" class="btn btn-success" id="joinBandBtn" >
+                                밴드 가입 신청
+                            </button>
+                        </form>
+
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/member/login" class="btn btn-info">로그인하고 가입 신청하기</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+
         </div>
         <div class="band-main">
             <div class="create-post-box">
@@ -88,16 +113,20 @@
     </div>
 </main>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const createPostBtn = document.getElementById('create-post-btn');
-        const contentTextarea = document.querySelector('textarea[name="content"]'); // content라는 name을 가진 textarea
 
-        if (createPostBtn && contentTextarea) {
-            createPostBtn.addEventListener('click', function() {
-                contentTextarea.focus(); 
-            });
+
+
+    function writeHandle() {
+        const contentTextarea = document.querySelector('textarea[name="content"]');
+        contentTextarea.focus();
+    }
+
+    function joinHandle(event) {
+        if(!window.confirm("가입신청하시겠습니까?"))  {
+            event.preventDefault();
         }
-    });
+    }
+
 </script>
 
 </body>
