@@ -20,11 +20,11 @@ public class BandJoinRequestServlet extends HttpServlet {
         int bandNo = Integer.parseInt(req.getParameter("bandNo"));
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
-        BandJoinRequest joinReq= new BandJoinRequest();
+        BandJoinRequest joinReq = new BandJoinRequest();
         joinReq.setMemberId(logonUser.getId());
         joinReq.setBandNo(bandNo);
-        int r = sqlSession.insert("mappers.BandJoinRequestMapper.insertBandJoinRequest",joinReq);
+        int r = sqlSession.insert("mappers.BandJoinRequestMapper.insertBandJoinRequest", joinReq);
 
-        resp.sendRedirect("/band/board?no="+bandNo);
+        resp.sendRedirect("/band/board?no=" + bandNo);
     }
 }

@@ -31,7 +31,7 @@
             <div class="band-action">
                 <c:choose>
                     <c:when test="${userBandStatus == 'MASTER'}">
-                        <a href="${pageContext.request.contextPath}/band/approve-request?bandNo=${band.no}" class="btn btn-warning">회원 관리</a>
+                        <a href="${pageContext.request.contextPath}/band/join-request-manage?no=${band.no}" class="btn btn-warning">회원 관리</a>
                     </c:when>
                     <c:when test="${userBandStatus == 'JOINED'}">
                         <button class="create-post-btn" id="create-post-btn" onclick="writeHandle();">글쓰기</button>

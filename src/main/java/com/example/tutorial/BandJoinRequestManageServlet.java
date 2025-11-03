@@ -29,48 +29,31 @@ public class BandJoinRequestManageServlet extends HttpServlet {
             return;
         }
 
-        int bandNo;
-        try {
-            bandNo = Integer.parseInt(req.getParameter("bandNo"));
-        } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "유효하지 않은 밴드 번호입니다.");
+        int bandNo = Integer.parseInt(req.getParameter("no"));
+
+        System.out.println("bandNo 파라미터: " + req.getParameter("no"));
+        System.out.println("로그인한 유저: " + logonUser.getId());
+
+        SqlSession sqlSession = MybatisUtil.build().openSession(true);
+
+        Band band = sqlSession.selectOne("mappers.BandMapper.selectByNo", bandNo);
+        if (band == null) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "밴드를 찾을 수 없습니다.");
             return;
         }
+        req.setAttribute("band", band);
 
-        System.out.println("bandNo 파라미터: " + req.getParameter("bandNo"));
-        System.out.println("로그인한 유저: " + logonUser.getId());
-        SqlSession sqlSession = null;
-        try {
-            sqlSession = MybatisUtil.build().openSession(true);
+        List<BandJoinRequest> pendingRequests = sqlSession.selectList("mappers.BandJoinRequestMapper.selectPendingJoinRequestByBandNo", bandNo);
+        req.setAttribute("pendingRequests", pendingRequests);
+        sqlSession.close();
 
-            Band band = sqlSession.selectOne("mappers.BandMapper.selectByNo", bandNo);
-            if (band == null) {
-                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "밴드를 찾을 수 없습니다.");
-                return;
-            }
+//        resp.sendRedirect("/band/join-request-manage?no=" + bandNo);
+        req.getRequestDispatcher("/band/approve-request.jsp").forward(req, resp);
 
-            if (!logonUser.getId().equals(band.getCreateMaster())) {
-                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "밴드 마스터만 접근할 수 있습니다.");
-                return;
-            }
-
-            List<BandJoinRequest> pendingRequests = sqlSession.selectList("mappers.BandJoinRequestMapper.selectPendingJoinRequestByBandNo", bandNo);
-            req.setAttribute("band", band);
-            req.setAttribute("pendingRequests", pendingRequests);
-            req.getRequestDispatcher("/band/approve-requests.jsp").forward(req, resp);
-
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            sqlSession.close();
-        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = resp.getWriter();
-
         Member logonUser = (Member) req.getSession().getAttribute("logonUser");
         Map<String, Object> responseMap = new HashMap<>();
 
@@ -101,41 +84,8 @@ public class BandJoinRequestManageServlet extends HttpServlet {
             Map<String, Object> checkParams = new HashMap<>();
             checkParams.put("bandNo", bandNo);
             checkParams.put("memberId", logonUser.getId());
-            BandJoinRequest existingRequest = sqlSession.selectOne("mappers.BandJoinRequestMapper.selectJoinRequestStatus", checkParams);
-            if (existingRequest != null) {
-                String currentStatus = existingRequest.getJoinStatus();
-                if ("pending".equals(currentStatus)) {
-                    out.println("FAIL: 이미 가입 신청 대기중입니다.");
-                    return;
-                } else if ("approved".equals(currentStatus)) {
-                    out.println("FAIL: 이미 이 밴드의 멤버입니다.");
-                    return;
-                }
-            }
 
-            BandJoinRequest bjr = new BandJoinRequest();
-            bjr.setBandNo(bandNo);
-            bjr.setMemberId(logonUser.getId());
 
-            int r = sqlSession.insert("mappers.BandJoinRequestMapper.insertBandJoinRequest", bjr);
-            if ( r > 0) {
-                out.println("SUCCESS: 가입 신청이 완료되었습니다. 마스터의 승인을 기다려주세요.");
-            } else {
-                out.println("FAIL: 가입 신청에 실패했습니다. (DB 삽입 실패)");
-            }
-//            Band band = sqlSession.selectOne("mappers.BandMapper.selectByNo", bandNo);
-//            if (band == null || !logonUser.getId().equals(band.getCreateMaster())) {
-//                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "밴두 마스터만 처리할 수 있습니다.");
-//                return;
-//            }
-//            Map<String, Object> updateParams = new HashMap<>();
-//            updateParams.put("idx", idx);
-//            updateParams.put("joinStatus", action.equals("approve") ? "approved" : "rejected");
-//            int r = sqlSession.update("mappers.BandJoinRequestMapper.updateJoinStatus", updateParams);
-//            if (r > 0 && action.equals("approve")) {
-//                sqlSession.update("mappers.BandJoinRequestMapper.increaseBandMemberCnt", bandNo);
-//            }
-//            resp.sendRedirect(req.getContextPath() + "/band/approver-request?bandNo=" + bandNo + "&msg=request_processed");
         } catch (Exception e) {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "가입 요청 처리 중 오류 발생");
         } finally {

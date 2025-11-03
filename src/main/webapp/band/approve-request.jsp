@@ -56,7 +56,7 @@
             <p>현재 대기 중인 가입 요청이 없습니다.</p>
         </c:otherwise>
     </c:choose>
-    <a href="${pageContext.request.contextPath}/band/board?no=${band.no}">밴드 페이지로 돌아가기</a>
+    <a href="/band/board?no=${band.no}">밴드 페이지로 돌아가기</a>
 </main>
 </body>
 </html>

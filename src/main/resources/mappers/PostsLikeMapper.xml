@@ -17,4 +17,7 @@
     <delete id="deleteByArticleNo" parameterType="int">
         delete from postsLike where articleNo = #{no}
     </delete>
+
+
+
 </mapper>
