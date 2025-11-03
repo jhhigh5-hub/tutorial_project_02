@@ -16,40 +16,27 @@ import java.util.Map;
 
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getSession().getAttribute("logonUser") != null) {
-            req.setAttribute("auth", true);
-        } else {
-            req.setAttribute("auth", false);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String keyword = req.getParameter("keyword");
+        if (keyword == null || keyword.trim().isEmpty()) {
+            req.setAttribute("Error", "검색어를 입력하세요.");
+            req.getRequestDispatcher("/search-result.jsp").forward(req, resp);
+            return;
         }
 
-        int page = req.getParameter("page") != null ?
-                Integer.parseInt(req.getParameter("page")) : 1;
-        String keyword = req.getParameter("keyword") != null ? req.getParameter("keyword") : "";
+        try (SqlSession sqlSession = MybatisUtil.build().openSession()) {
+            List<Band> bands = sqlSession.selectList("mappers.SearchMapper.searchBands", "%" + keyword + "%");
+            List<Posts> posts = sqlSession.selectList("mappers.SearchMapper.searchPosts", "%" + keyword + "%");
 
-        SqlSession sqlSession = MybatisUtil.build().openSession(true);
+            req.setAttribute("keyword", keyword);
+            req.setAttribute("bands", bands);
+            req.setAttribute("posts", posts);
 
-        Map param = Map.of("offset", (page - 1) * 10,
-                "keyword", "%" + keyword + "%");
-        List<Band> band =
-                sqlSession.selectList("mappers.BandMapper.selectKeywordByOffset", param);
-
-
-        // int count = sqlSession.selectOne("mappers.ArticleMapper.countAll");
-        int count = sqlSession.selectOne("mappers.BandMapper.selectPendingBandJoinRequests",
-                "%"+keyword+"%");
-        int lastPage = count / 10 + (count % 10 > 0 ? 1 : 0);
-
-
-
-        req.setAttribute("lastPage", lastPage);
-        req.setAttribute("page", page);
-        req.setAttribute("count", count);
-        req.setAttribute("keyword", keyword);
-
-
-        req.getRequestDispatcher("/board.jsp").forward(req, resp);
-
+            req.getRequestDispatcher("/search-result.jsp").forward(req, resp);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

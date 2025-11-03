@@ -23,5 +23,7 @@
         <mapper resource="mappers/BandMapper.xml"/>
         <mapper resource="mappers/PostsMapper.xml"/>
         <mapper resource="mappers/BandJoinRequest.xml"/>
+        <mapper resource="mappers/PostsLikeMapper.xml"/>
+        <mapper resource="mappers/SearchMapper.xml"/>
     </mappers>
 </configuration>

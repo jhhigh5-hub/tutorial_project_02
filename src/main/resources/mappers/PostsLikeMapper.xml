@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.PostsLikeMapper">
+    <!-- 등록 -->
+    <insert id="insertOne" parameterType="PostsLike">
+        insert into postsLike(memberId, postNo) values(#{memberId}, #{postNo})
+    </insert>
+    <!-- 삭제 -->
+    <delete id="deleteByIdx" parameterType="int">
+        delete from postsLike where idx = #{idx}
+    </delete>
+    <delete id="deleteByMemberIdAndArticleNo" parameterType="postsLike">
+        delete from postsLike where memberId = #{memberId} and postNo = #{postNo}
+    </delete>
+    <delete id="deleteByArticleNo" parameterType="int">
+        delete from postsLike where articleNo = #{no}
+    </delete>
+</mapper>

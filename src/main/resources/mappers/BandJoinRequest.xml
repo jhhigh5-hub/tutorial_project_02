@@ -16,11 +16,11 @@
 
     <!-- 요청 대기 상태 -->
     <select id="selectPendingJoinRequestByBandNo" parameterType="int" resultType="BandJoinRequest">
-        select br.idx, br.bandNo, br.memberId, br.joinStatus, br.joinAt, m.nickname as memberNicname
+        select br.idx, br.bandNo, br.memberId, br.joinStatus, br.joinAt, m.nickname as memberNickname
         from bandJoinRequest br
         inner join member m on br.memberId = m.id
         where br.bandNo = #{bandNo} and br.joinStatus = 'pending'
-        order by br.join At asc
+        order by br.joinAt asc
     </select>
 
     <!-- 가입 요청 처리 (승인 또는 거절) -->

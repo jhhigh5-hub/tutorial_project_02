@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.SearchMapper">
+    <!-- 추천 기록 찾기 -->
+    <select id="countByMemberIdAndArticleNo" resultType="int" parameterType="map">
+        select count(*) from postsLike where memberId = #{memberId} and postNo = #{postNo}
+    </select>
+    <select id="selectByMemberIdAndArticleNo" resultType="postsLike" parameterType="postsLike">
+        select * from postsLike where memberId = #{memberId} and articleNo = #{articleNo}
+    </select>
+    <select id="selectLikedArticlesByMemberId" parameterType="string" resultType="postsLike">
+        select * from postsLike join posts on posts.no = postsLike.postNo
+        where postsLike.memberId = #{id}
+    </select>
+    <!-- 밴드명 검색 -->
+    <select id="searchBands" parameterType="String" resultType="Band">
+        select no, createMaster, bandName, category, memberCnt, bandImgPath from band
+        where bandName like #{keyword}
+        order by bandName
+    </select>
+    <!-- 게시글 및 해시태그 검색 -->
+    <select id="searchPosts" parameterType="String" resultType="Posts">
+        select no, bandNo, writerId, hashtag, content, wroteAt, viewCnt, likeCnt, commentCnt from posts
+        where content like #{keyword}
+        or hashtag like #{keyword}
+        order by wroteAt desc
+    </select>
+</mapper>

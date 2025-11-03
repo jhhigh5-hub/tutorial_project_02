@@ -81,8 +81,8 @@
                                 <div class="band-info-icon">
                                     <i class="fa-solid fa-users"></i>
                                 </div>
-                                    <p class="band-name">${bandItem.bandName}</p>
-                                    <p class="">마스터: ${bandItem.createMaster}</p>
+                                    <p class="band-name">${banditem.bandName}</p>
+                                    <p class="">마스터명: ${banditem.createMaster}</p>
                                 </a>
                                 </div>
                         </c:forEach>
