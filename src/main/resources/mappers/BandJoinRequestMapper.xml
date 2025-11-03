@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mappers.BandJoinRequest">
+<mapper namespace="mappers.BandJoinRequestMapper">
     <!-- 가입 신청 요청 -->
     <insert id="insertBandJoinRequest" parameterType="BandJoinRequest" useGeneratedKeys="true" keyProperty="idx">
-        insert into bandJoinRequest(bandNo, memberId, joinStatus) values (#{bandNo}, #{memberId}, 'pending')
+        insert into bandJoinRequest(bandNo, memberId) values (#{bandNo}, #{memberId})
     </insert>
 
     <!-- 가입된 멤버인지 확인 -->
-    <select id="selectBandJoinStatus" parameterType="map" resultType="String">
+    <select id="selectBandJoinStatus" parameterType="map" resultType="BandJoinRequest">
         select joinStatus from bandJoinRequest where bandNo = #{bandNo} and memberId = #{memberId}
         order by joinAt desc limit 1
     </select>

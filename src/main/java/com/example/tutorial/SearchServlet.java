@@ -18,7 +18,7 @@ import java.util.Map;
 public class SearchServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String keyword = req.getParameter("keyword");
         if (keyword == null || keyword.trim().isEmpty()) {
             req.setAttribute("Error", "검색어를 입력하세요.");

@@ -20,7 +20,7 @@
                 <a href="/main"><img src="/img/band-w-logo.png" alt=""></a>
             </div>
             <div class="search-box">
-                <form action="/search" method="post" class="search-box">
+                <form action="/search" class="search-box">
                     <input type="text" name="keyword" placeholder="밴드, 게시글 검색" value="${keyword}">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </form>
