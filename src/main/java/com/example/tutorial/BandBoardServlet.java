@@ -2,6 +2,7 @@ package com.example.tutorial;
 
 import com.example.tutorial.util.MybatisUtil;
 import com.example.tutorial.vo.Band;
+import com.example.tutorial.vo.Comment;
 import com.example.tutorial.vo.Member;
 import com.example.tutorial.vo.Posts;
 import jakarta.servlet.ServletException;
@@ -73,6 +74,18 @@ public class BandBoardServlet extends HttpServlet {
 
             List<Posts> postsList = sqlSession.selectList("mappers.PostsMapper.selectAllByBanNo", postsParam);
 
+
+
+            // 2️⃣ 각 게시글에 댓글 목록 추가
+            for (Posts post : postsList) {
+                List<Comment> comments = sqlSession.selectList(
+                        "mappers.PostsMapper.selectCommentsByPostNo", post.getNo()
+                );
+                post.setComments(comments);
+            }
+
+
+            // JSP 전달
             req.setAttribute("postsList", postsList);
             req.setAttribute("totalPostsCount", totalPostsCount);
             req.setAttribute("lastPage", lastPage);
@@ -97,6 +110,7 @@ public class BandBoardServlet extends HttpServlet {
         String hashtag = req.getParameter("hashtag");
         String content = req.getParameter("content");
 
+
         if (content == null || content.trim().isEmpty()) {
             req.setAttribute("error", "내용은 필수입니다.");
             req.getParameter("no");
@@ -116,7 +130,7 @@ public class BandBoardServlet extends HttpServlet {
 
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
-        int r = sqlSession.insert("mappers.BandMapper.insertOne", posts);
+        int r = sqlSession.insert("mappers.PostsMapper.insertOne", posts);
 
         sqlSession.close();
 

@@ -21,6 +21,19 @@
     </select>
 
     <!-- 조회수(증가), 댓글(등록,삭제), 좋아요(등록,삭제) -->
+    <!-- 댓글 등록 -->
+    <insert id="insertComment" parameterType="comment">
+        insert into comment(postNo, writerId, content, commentedAt)
+        values(#{postNo}, #{writerId}, #{content}, NOW())
+    </insert>
+    <!-- 댓글 조회 -->
+    <select id="selectCommentsByPostNo" parameterType="int" resultType="comment">
+        select*from comment where postNo = #{postNo} order by commentedAt ASC
+    </select>
+    <!-- 게시글 하나 상세 조회 -->
+    <select id="selectOneByNo" parameterType="int" resultType="Posts">
+        select * from posts where no = #{no}
+    </select>
     <update id="updateViewCnt" parameterType="int">
         update posts set viewCnt = viewCnt +1 where no = #{no}
     </update>

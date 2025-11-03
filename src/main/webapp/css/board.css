@@ -137,7 +137,7 @@ textarea:focus{
     background-color: #3A414A;
 }
 
-
+/* 게시글 박스 */
 .bord {
     background-color: #fff;
     padding: 20px;
@@ -193,4 +193,41 @@ textarea:focus{
 }
 .no-posts{
     color: #666;
+}
+
+/* ================= 댓글 스타일 ================= */
+
+/* 댓글 리스트 */
+.comment-list {
+    margin-top: 10px;
+    padding-left: 15px;
+    border-left: 2px solid #ddd;
+}
+
+/* 댓글 아이템 */
+.comment-item {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+/* 댓글 작성자 및 날짜 */
+.comment-date {
+    color: #aaa;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* 댓글 작성 폼 */
+.comment-form {
+    margin-top: 10px;
+}
+.comment-form textarea {
+    width: 100%;
+    resize: none;
+    font-size: 14px;
+    padding: 5px;
+}
+.comment-form button {
+    margin-top: 5px;
+    float: right;
 }

@@ -46,21 +46,36 @@
                     </div>
                 </form>
             </div>
+
             <div class="bord">
                 <c:choose>
                     <c:when test="${not empty postsList}">
                         <c:forEach var="post" items="${postsList}">
                             <div class="post-item">
-                                <div class="post-header">
-                                    <i class="fa-solid fa-circle-user profile"></i>
-                                    <span class="post-writer">${post.writerId}</span> &nbsp;
-                                    <span class="post-date">${fn:replace(post.wroteAt, 'T', ' ')}</span>
-                                </div>
-                                <div class="post-content">
-                                        ${post.content}
-                                </div>
-                                <c:if test="${not empty post.hashtag}">
-                                    <div class="post-hashtag">#${post.hashtag}</div>
+                                <!-- 게시글 내용 -->
+                                <div class="post-header">${post.writerId}</div>
+                                <div class="post-content">${post.content}</div>
+
+                                <!-- 댓글 리스트 -->
+                                <c:if test="${not empty post.comments}">
+                                    <div class="comment-list">
+                                        <c:forEach var="comment" items="${post.comments}">
+                                            <div class="comment-item">
+                                                    ${comment.writerId} : ${comment.content}
+                                                <span class="comment-date">${comment.commentedAt}</span>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:if>
+
+                                <!-- 댓글 작성 폼 -->
+                                <c:if test="${auth}">
+                                    <form action="/band/comment" method="post" class="comment-form">
+                                        <input type="hidden" name="bandNo" value="${band.no}">
+                                        <input type="hidden" name="postNo" value="${post.no}">
+                                        <textarea name="content" placeholder="댓글을 입력하세요"></textarea>
+                                        <button type="submit">등록</button>
+                                    </form>
                                 </c:if>
                             </div>
                         </c:forEach>
@@ -69,6 +84,10 @@
                         <p class="no-posts">아직 게시글이 없습니다. 첫 글을 작성해보세요!</p>
                     </c:otherwise>
                 </c:choose>
+
+
+
+                <!-- 페이지네이션 -->
                 <c:if test="${lastPage > 1}">
                     <div class="pagination">
                         <c:forEach var="i" begin="1" end="${lastPage}">
@@ -83,6 +102,7 @@
                         </c:forEach>
                     </div>
                 </c:if>
+
             </div>
         </div>
     </div>
