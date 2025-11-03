@@ -1,10 +1,7 @@
 package com.example.tutorial;
 
 import com.example.tutorial.util.MybatisUtil;
-import com.example.tutorial.vo.Band;
-import com.example.tutorial.vo.BandJoinRequest;
-import com.example.tutorial.vo.Member;
-import com.example.tutorial.vo.Posts;
+import com.example.tutorial.vo.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -103,6 +100,14 @@ public class BandBoardServlet extends HttpServlet {
             postsParam.put("amount", POSTS_PER_PAGE);
 
             List<Posts> postsList = sqlSession.selectList("mappers.PostsMapper.selectAllByBanNo", postsParam);
+
+            // 2️⃣ 각 게시글에 댓글 목록 추가
+            for (Posts post : postsList) {
+                List<Comment> comments = sqlSession.selectList(
+                        "mappers.PostsMapper.selectCommentsByPostNo", post.getNo()
+                );
+                post.setComments(comments);
+            }
 
             req.setAttribute("postsList", postsList);
             req.setAttribute("totalPostsCount", totalPostsCount);
