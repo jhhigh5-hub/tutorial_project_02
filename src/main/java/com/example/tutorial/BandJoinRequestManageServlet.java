@@ -70,26 +70,23 @@ public class BandJoinRequestManageServlet extends HttpServlet {
             idx = Integer.parseInt(req.getParameter("idx"));
             bandNo = Integer.parseInt(req.getParameter("bandNo"));
             if (action == null || (!action.equals("approve")) && !action.equals("reject")) {
-                throw new IllegalArgumentException("유효하지 않은 처리 액션입니다.");
+                System.err.println("유효하지 않은 액션입니다." + action);
+                return;
             }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "잘못된 요청 파라미터입니다.");
+        } catch (NumberFormatException e) {
+            System.err.println("유효하지 않은 'idx', 또는 'bandNo'입니다." + e.getMessage());
             return;
         }
 
-        SqlSession sqlSession = null;
-        try {
-            sqlSession = MybatisUtil.build().openSession(true);
-            Map<String, Object> checkParams = new HashMap<>();
-            checkParams.put("bandNo", bandNo);
-            checkParams.put("memberId", logonUser.getId());
+        SqlSession sqlSession = MybatisUtil.build().openSession(true);
+            BandJoinRequest bandJoinRequest = new BandJoinRequest();
+            bandJoinRequest.setBandNo(bandNo);
+            bandJoinRequest.setMemberId(logonUser.getId());
+        int r = sqlSession.update("mappers.BandJoinRequestMapper.updateBandJoinRequestStaus",bandJoinRequest);
+        int r1= sqlSession.update("mappers.BandJoinRequestMapper.increaseBandMemberCnt", bandNo);
 
-
-        } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "가입 요청 처리 중 오류 발생");
-        } finally {
             sqlSession.close();
-        }
+
+        resp.sendRedirect("/band/join-request-manage?no="+bandNo);
     }
 }
