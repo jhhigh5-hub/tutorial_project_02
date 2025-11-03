@@ -21,4 +21,8 @@ public class Posts {
 
     // 댓글 목록 필드 추가
     List<Comment> comments;
-}
+
+    // 좋아요 여부
+    boolean alreadyLike;
+    }
+

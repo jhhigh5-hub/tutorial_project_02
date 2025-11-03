@@ -80,6 +80,33 @@
                                 <!-- 게시글 내용 -->
                                 <div class="post-header">${post.writerId}</div>
                                 <div class="post-content">${post.content}</div>
+                                <div class="post-hashtag">＃${post.hashtag}</div>
+
+                                <!-- 좋아요 & 댓글 버튼 영역 -->
+                                <c:if test="${auth}">
+                                    <div class="post-actions">
+                                        <!-- 좋아요 버튼 -->
+                                        <form action="/posts/like" method="post" style="display:inline;">
+                                            <input type="hidden" name="postNo" value="${post.no}">
+                                            <input type="hidden" name="bandNo" value="${band.no}">
+                                            <button type="submit" class="likeBtn">
+                                                <c:choose>
+                                                    <c:when test="${post.alreadyLike}">
+                                                        ❤️ 좋아요 (${post.likeCnt + 1})
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        🤍 좋아요
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </button>
+                                        </form>
+
+                                        <!-- 댓글쓰기 버튼 -->
+                                        <button type="button" class="toggle-comment-btn commentBtn" data-postno="${post.no}">
+                                            💬 댓글쓰기
+                                        </button>
+                                    </div>
+                                </c:if>
 
                                 <!-- 댓글 리스트 -->
                                 <c:if test="${not empty post.comments}">
@@ -95,7 +122,7 @@
 
                                 <!-- 댓글 작성 폼 -->
                                 <c:if test="${auth}">
-                                    <form action="/band/comment" method="post" class="comment-form">
+                                    <form action="/band/comment" method="post" class="comment-form" id="comment-form-${post.no}" style="display:none;">
                                         <input type="hidden" name="bandNo" value="${band.no}">
                                         <input type="hidden" name="postNo" value="${post.no}">
                                         <textarea name="content" placeholder="댓글을 입력하세요"></textarea>
@@ -133,9 +160,6 @@
     </div>
 </main>
 <script>
-
-
-
     function writeHandle() {
         const contentTextarea = document.querySelector('textarea[name="content"]');
         contentTextarea.focus();
@@ -146,6 +170,20 @@
             event.preventDefault();
         }
     }
+
+    // 댓글쓰기 버튼 클릭 시 폼 나타나기/숨기기
+    document.querySelectorAll('.toggle-comment-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const postNo = this.dataset.postno;
+            const form = document.getElementById('comment-form-' + postNo);
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                form.querySelector('textarea').focus();
+            } else {
+                form.style.display = 'none';
+            }
+        });
+    });
 
 </script>
 

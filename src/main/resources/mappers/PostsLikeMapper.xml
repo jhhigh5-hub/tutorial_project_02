@@ -17,7 +17,19 @@
     <delete id="deleteByArticleNo" parameterType="int">
         delete from postsLike where articleNo = #{no}
     </delete>
-
-
+    <select id="exists" parameterType="PostsLike" resultType="int">
+        select count(*) from postsLike
+        where memberId = #{memberId} and postNo = #{postNo}
+    </select>
+    <!-- 게시글 select 시 likeCnt 포함 -->
+    <select id="selectAllByBandNo" parameterType="map" resultType="Posts">
+        SELECT no, bandNo, writerId, hashtag, content, wroteAt, viewCnt,
+        (SELECT COUNT(*) FROM postsLike pl WHERE pl.postNo = p.no) AS likeCnt,
+        commentCnt
+        FROM posts p
+        WHERE bandNo = #{bandNo}
+        ORDER BY wroteAt DESC
+        LIMIT #{offset}, #{amount}
+    </select>
 
 </mapper>

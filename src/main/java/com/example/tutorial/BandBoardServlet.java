@@ -107,6 +107,17 @@ public class BandBoardServlet extends HttpServlet {
                         "mappers.PostsMapper.selectCommentsByPostNo", post.getNo()
                 );
                 post.setComments(comments);
+
+                // 좋아요 여부 확인
+                if (logonUser != null) {
+                    Map<String, Object> likeParam = new HashMap<>();
+                    likeParam.put("memberId", logonUser.getId());
+                    likeParam.put("postNo", post.getNo());
+                    Integer count = sqlSession.selectOne("mappers.PostsLikeMapper.exists", likeParam);
+                    post.setAlreadyLike(count != null && count > 0);
+                } else {
+                    post.setAlreadyLike(false);
+                }
             }
 
             req.setAttribute("postsList", postsList);
