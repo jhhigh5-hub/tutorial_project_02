@@ -38,8 +38,11 @@
         select * from comment where no = #{commentNo} order by commentedAt ASC
     </select>
     <!-- 게시글 조회 -->
+    <select id="selectPostsByNo" parameterType="int" resultType="Posts">
+        select * from posts where no = #{postNo} order by wroteAt ASC
+    </select>
     <select id="selectPostsByBandNo" parameterType="int" resultType="Posts">
-        select * from posts where bandNo = #{bandNo} order by commentedAt ASC
+        select * from posts where bandNo = #{bandNo} order by wroteAt ASC
     </select>
     <!-- 게시글 하나 상세 조회 -->
     <select id="selectOneByNo" parameterType="int" resultType="Posts">
@@ -70,8 +73,11 @@
     <delete id="deleteCommentsByCommentNo" parameterType="int">
         DELETE FROM comment WHERE no = #{commentNo}
     </delete>
+    <delete id="deleteCommentsByPostNo" parameterType="int">
+        DELETE FROM comment WHERE postNo = #{postNo}
+    </delete>
     <!-- 게시글 삭제 -->
-    <delete id="deletePostByNo" parameterType="map">
-        DELETE FROM posts WHERE no = #{no}
+    <delete id="deletePostByNo" parameterType="int">
+        DELETE FROM posts WHERE no = #{bandNo}
     </delete>
 </mapper>

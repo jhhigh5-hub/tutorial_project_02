@@ -22,6 +22,7 @@ public class BandPostDeleteServlet extends HttpServlet {
         // no로 넘어오는 파라미터 넘어온 값 뽑아서
         int postNo = Integer.parseInt(req.getParameter("postNo"));
         int bandNo = Integer.parseInt(req.getParameter("bandNo"));
+
         // mybatis 연결해서 deleteByNo 호출
         SqlSession sqlSession = MybatisUtil.build().openSession(false);
         // 삭제 전에 처리해야될 일들
@@ -32,24 +33,19 @@ public class BandPostDeleteServlet extends HttpServlet {
         System.out.println("로그인 유저의 ID 값: " + user.getId());
         System.out.println("로그인 유저의 ID 타입: " + user.getId().getClass().getName());
 
-        PostsLike pl = new PostsLike();
-        pl.setMemberId(user.getId());
-        pl.setPostNo(postNo);
-
-        System.out.println("PostsLike 객체 (pl) memberId 값: " + pl.getMemberId());
-        System.out.println("PostsLike 객체 (pl) memberId 타입: " + pl.getMemberId().getClass().getName());
-        System.out.println("PostsLike 객체 (pl) postNo 값: " + pl.getPostNo());
-        System.out.println("PostsLike 객체 (pl) postNo 타입: " + ((Object)pl.getPostNo()).getClass().getName());
-
-        Posts posts = sqlSession.selectOne("mappers.PostsMapper.selectCommentsByPostNo", postNo);
+        Posts posts = sqlSession.selectOne("mappers.PostsMapper.selectPostsByNo", postNo);
 
         // 3. 연속된 작업을 해야하는 경우이므로 트라이캐치로 커밋, 롤벡 작업 해줘야함.!!!!!!!
         try {
             // 2. 삭제하고자하는 글을 좋아요, 댓글 등의 정보들을 전부 삭제해야지만 글이 삭제됨.
             if (user != null && posts != null && posts.getWriterId().equals(user.getId())) {
-                sqlSession.delete("mappers.PostsLikeMapper.deleteByMemberIdAndArticleNo", pl);
-                sqlSession.delete("mappers.PostsMapper.deleteCommentsByPostNo", postNo);
-                sqlSession.delete("mappers.PostsMapper.deletePostByNo", bandNo);
+                int r = sqlSession.delete("mappers.PostsLikeMapper.deleteLikesByPostsNo", postNo);
+                System.out.println("DEBUG: deletedLikes (삭제된 좋아요 수): " + r);
+                int r2 = sqlSession.delete("mappers.PostsMapper.deleteCommentsByPostNo", postNo);
+                System.out.println("postNo: " + postNo);
+                System.out.println("DEBUG: deletedComments (삭제된 댓글 수): " + r2);
+                int r3 = sqlSession.delete("mappers.PostsMapper.deletePostByNo", postNo);
+                System.out.println("DEBUG: deletedPost (삭제된 게시글 수): " + r3);
             }
             sqlSession.commit();
         } catch (Exception e) {

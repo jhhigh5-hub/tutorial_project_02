@@ -35,7 +35,7 @@ public class PostsLikeServlet extends HttpServlet {
             Integer exists = sqlSession.selectOne("mappers.PostsLikeMapper.exists", like);
 
             if (exists != null && exists > 0) {
-                sqlSession.delete("mappers.PostsLikeMapper.deleteByMemberIdAndArticleNo", like);
+                sqlSession.delete("mappers.PostsLikeMapper.deleteByMemberIdAndPostNo", like);
             } else {
                 sqlSession.insert("mappers.PostsLikeMapper.insertOne", like);
             }
