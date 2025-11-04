@@ -414,6 +414,7 @@ html, body {
 .comment-form button:hover {
     background: linear-gradient(145deg, #3a414a, #4a5058);
 }
+
 .comment-form button:active {
     transform: scale(0.97);
 }
