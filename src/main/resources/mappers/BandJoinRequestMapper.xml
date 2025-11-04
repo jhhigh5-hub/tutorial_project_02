@@ -23,10 +23,11 @@
         order by br.joinAt asc
     </select>
 
-    <!-- 가입 요청 처리 (승인 또는 거절) -->
-    <update id="updateBandJoinRequestStaus" parameterType="map">
-        update bandJoinRequest set joinStatus = #{joinStatus} where idx = #{idx}
-        and bandNo = #{bandNo} and joinStatus = 'pending'
+    <!-- 가입 요청 처리 (승인) -->
+    <update id="updateBandJoinRequestStatus" parameterType="map">
+        update bandJoinRequest set joinStatus = #{joinStatus}
+        where bandNo = #{bandNo} and memberId = #{memberId}
+        and joinStatus = 'pending'
     </update>
 
     <!-- 밴드 맴버 카운트 업데이트 -->

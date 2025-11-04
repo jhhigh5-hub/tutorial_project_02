@@ -19,6 +19,10 @@
     <select id="countLikeKeyword" resultType="int">
         select count(*) from posts where content like #{keyword} or hashtag like #{keyword}
     </select>
+    <select id="selectMyAllPosts" parameterType="String" resultType="map">
+        select * from posts join band on posts.bandNo = #{band.no} where posts.writerId = #{writerId}
+        order by posts.wroteAt desc
+    </select>
 
     <!-- 조회수(증가), 댓글(등록,삭제), 좋아요(등록,삭제) -->
     <!-- 댓글 등록 -->
