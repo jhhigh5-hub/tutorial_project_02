@@ -20,7 +20,7 @@
         select count(*) from posts where content like #{keyword} or hashtag like #{keyword}
     </select>
     <select id="selectMyAllPosts" parameterType="String" resultType="map">
-        select * from posts join band on posts.bandNo = #{band.no} where posts.writerId = #{writerId}
+        select * from posts join band on posts.bandNo = band.no where posts.writerId = #{writerId}
         order by posts.wroteAt desc
     </select>
 
@@ -32,7 +32,17 @@
     </insert>
     <!-- 댓글 조회 -->
     <select id="selectCommentsByPostNo" parameterType="int" resultType="comment">
-        select*from comment where postNo = #{postNo} order by commentedAt ASC
+        select * from comment where postNo = #{postNo} order by commentedAt ASC
+    </select>
+    <select id="selectCommentsByCommentNo" parameterType="int" resultType="comment">
+        select * from comment where no = #{commentNo} order by commentedAt ASC
+    </select>
+    <!-- 게시글 조회 -->
+    <select id="selectPostsByNo" parameterType="int" resultType="Posts">
+        select * from posts where no = #{postNo} order by wroteAt ASC
+    </select>
+    <select id="selectPostsByBandNo" parameterType="int" resultType="Posts">
+        select * from posts where bandNo = #{bandNo} order by wroteAt ASC
     </select>
     <!-- 게시글 하나 상세 조회 -->
     <select id="selectOneByNo" parameterType="int" resultType="Posts">
@@ -59,12 +69,15 @@
         update posts set content = #{content}, hashtag = #{hashtag} where no = #{no}
     </update>
 
-    <!-- 댓글 전체 삭제 -->
+    <!-- 댓글 삭제 -->
+    <delete id="deleteCommentsByCommentNo" parameterType="int">
+        DELETE FROM comment WHERE no = #{commentNo}
+    </delete>
     <delete id="deleteCommentsByPostNo" parameterType="int">
         DELETE FROM comment WHERE postNo = #{postNo}
     </delete>
     <!-- 게시글 삭제 -->
     <delete id="deletePostByNo" parameterType="int">
-        DELETE FROM posts WHERE no = #{no}
+        DELETE FROM posts WHERE no = #{bandNo}
     </delete>
 </mapper>

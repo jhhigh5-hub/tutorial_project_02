@@ -65,7 +65,7 @@
                     <input type="text" name="title" placeholder="#태그 검색">
                     <textarea name="content" placeholder="글 내용을 입력하세요." rows="10" required></textarea>
                     <div class="hashtag-group">
-                        <input class="hashtag" type="text" name="tag-input" placeholder="" value="${band.category}">
+                        <input class="hashtag" type="text" name="tag-input" placeholder="해시태그">
                         <div class="post-actions">
                             <button type="submit" class="btn">게시</button>
                         </div>
@@ -144,7 +144,7 @@
 
                                                     <!-- 🟢 본인 댓글일 때만 삭제 버튼 노출 -->
                                                     <c:if test="${auth && logonUser.id == comment.writerId}">
-                                                        <form action="/band/post/delete" method="post" class="comment-delete-form"
+                                                        <form action="/band/comment/delete" method="post" class="comment-delete-form"
                                                               onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
                                                             <input type="hidden" name="commentNo" value="${comment.no}">
                                                             <input type="hidden" name="postNo" value="${post.no}">
