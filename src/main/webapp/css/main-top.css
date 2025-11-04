@@ -17,6 +17,8 @@ a{
 }
 header{
     background-color: #424B52; /* 전체 상단 배경색 */
+    position: relative; /* ✅ 수정: z-index 작동 위해 추가 */
+    z-index: 50; /* ✅ 수정 */
 }
 /*메인 탑*/
 .top-head{
@@ -29,6 +31,8 @@ header{
     padding: 0 20px;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative; /* ✅ 수정 */
+    z-index: 51; /* ✅ 수정 */
 }
 .top-head a,
 .top-head i {
@@ -114,9 +118,72 @@ header{
 .top-logout:hover{
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .2);
 }
+/* ✅ 수정된 부분 시작 */
 .topbtn{
     display: flex;
     font-size: 24px;
     gap: 10px;
-    color: #888;
+    color: #fff;
+    align-items: center;
+    position: relative;
+    z-index: 60; /* 다른 요소 위로 */
+}
+
+.topbtn a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto; /* 클릭 가능하게 */
+    z-index: 61;
+}
+
+/* 툴팁을 감싸는 부모 요소 */
+.tooltip-trigger {
+    position: relative;
+    display: inline-flex; /* 변경: inline-block → inline-flex로 */
+    align-items: center;
+    justify-content: center;
+}
+
+/* 툴팁 텍스트 (아래쪽으로 나오는 예쁜 버전) */
+.tooltip-trigger::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 130%; /* 👇 아이콘 아래쪽으로 나오게 */
+    left: 50%;
+    transform: translateX(-50%) translateY(5px); /* 자연스럽게 띄움 */
+    background-color: #2f373d; /* 더 진한 남회색 톤 */
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); /* 세련된 그림자 */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+    z-index: 1000;
+}
+
+.topbtn i {
+    cursor: pointer;
+    font-size: 22px;
+    pointer-events: auto;
+    transition: all 0.2s ease;
+}
+
+.topbtn i:hover {
+    color: #dfe6ed;
+}
+/* 호버 시 툴팁 등장 */
+.tooltip-trigger:hover::after,
+.tooltip-trigger:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); /* 살짝 위로 자연스럽게 올라오게 */
+}
+.notify-link {
+    position: relative;
+    overflow: visible;
+    z-index: 1001;
 }

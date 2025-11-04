@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/css/main-page.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <header>
@@ -31,12 +31,12 @@
             <a href="/member/logout"><button class="top-logout">로그아웃</button></a>
             <div class="topbtn">
                 <div class="top-new-post">
-                    <a href="">
+                    <a href="/band/posts-all" class="notify-link tooltip-trigger" data-tooltip="내 글 전체보기">
                         <i class="fa-solid fa-bell"></i>
                     </a>
                 </div>
                 <div class="top-profile">
-                    <a href="">
+                    <a href="" class="tooltip-trigger" data-tooltip="내 정보">
                         <i class="fa-solid fa-circle-user"></i>
                     </a>
                 </div>

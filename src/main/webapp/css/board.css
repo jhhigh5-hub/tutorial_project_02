@@ -159,6 +159,92 @@ html, body {
     font-size: 12px;
     color: #aaa;
 }
+/* ====== 게시글 우측 땡땡이 메뉴 ====== */
+.post-menu {
+    margin-left: auto;
+    position: relative;
+    display: inline-block;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+.menu-btn:hover {
+    background-color: #f2f2f2;
+}
+
+/* 드롭다운 메뉴 숨김 */
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    min-width: 90px;
+    padding: 0;
+    z-index: 10;
+    overflow: hidden; /* 내부 버튼이 바깥으로 밀리는 거 방지 */
+}
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    gap: 6px;
+    font-size: 14px;
+    color: #d33;
+}
+
+.menu-dropdown button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    height: 40px; /* 높이 고정으로 여백 방지 */
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #d33;
+    cursor: pointer;
+    line-height: 40px; /* 텍스트 여백 제거 */
+    padding: 0;
+    transition: background 0.2s;
+}
+/* 메뉴 안의 삭제 버튼 */
+.menu-dropdown .delete-option {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 8px 18px;
+    font-size: 14px;
+    color: #d33;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.menu-dropdown .delete-option:hover {
+    background-color: #ffeaea;
+}
+
+/* 메뉴 열렸을 때 보이게 */
+.post-menu.active .menu-dropdown {
+    display: block;
+}
+
+
+
+
 
 /* ====== 게시글 내용 ====== */
 .post-content {
@@ -172,6 +258,8 @@ html, body {
     font-size: 13px;
     color: #5c7cff;
 }
+
+
 
 /* ====== 좋아요 & 댓글 버튼 정렬 통일 ====== */
 .post-actions {
@@ -289,4 +377,63 @@ html, body {
 }
 .comment-form button:active {
     transform: scale(0.97);
+}
+/* 댓글 옆 삭제 버튼*/
+.comment-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.comment-left {
+    flex: 1;
+}
+
+.comment-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #888;
+    height: 100%; /* 높이 맞춤 */
+}
+
+.comment-right span,
+.comment-right form {
+    display: flex;
+    align-items: center; /* 자식 요소도 중앙 정렬 */
+}
+
+.comment-right span {
+    display: flex;
+    align-items: center; /* 텍스트도 중앙정렬 */
+}
+.comment-delete-btn {
+    position: relative;
+    top: 1px; /*  아주 살짝 내려줌 */
+}
+.comment-delete-btn {
+    background: none;
+    border: none;
+    color: #d33;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 3px 5px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+    line-height: 1;
+}
+
+.comment-delete-btn:hover {
+    background: #ffeaea;
 }

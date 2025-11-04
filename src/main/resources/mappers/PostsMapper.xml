@@ -38,6 +38,7 @@
     <select id="selectOneByNo" parameterType="int" resultType="Posts">
         select * from posts where no = #{no}
     </select>
+
     <update id="updateViewCnt" parameterType="int">
         update posts set viewCnt = viewCnt +1 where no = #{no}
     </update>
@@ -53,9 +54,17 @@
     <update id="decreaseLikeCnt" parameterType="int">
         update posts set likeCnt = likeCnt -1 where no = #{no}
     </update>
-
     <!-- 게시글 수정 -->
     <update id="updateOne" parameterType="Posts">
         update posts set content = #{content}, hashtag = #{hashtag} where no = #{no}
     </update>
+
+    <!-- 댓글 전체 삭제 -->
+    <delete id="deleteCommentsByPostNo" parameterType="int">
+        DELETE FROM comment WHERE postNo = #{postNo}
+    </delete>
+    <!-- 게시글 삭제 -->
+    <delete id="deletePostByNo" parameterType="int">
+        DELETE FROM posts WHERE no = #{postNo}
+    </delete>
 </mapper>

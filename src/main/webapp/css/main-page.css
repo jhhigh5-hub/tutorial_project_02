@@ -270,3 +270,46 @@ header{
     font-size: 14px;
     color: #666;
 }
+/* ✅ 툴팁 스타일 - 메인컬러 톤 맞춘 버전 */
+.tooltip-trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 툴팁 텍스트 */
+/* 툴팁 텍스트 (조금 더 아래로) */
+.tooltip-trigger::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 150%; /* 👇 더 아래쪽으로 */
+    left: 50%;
+    transform: translateX(-50%) translateY(8px); /* 살짝 더 띄움 */
+    background-color: #424B52; /* ✅ 메인 컬러 */
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 10px;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+    z-index: 1000;
+}
+
+
+/* hover 시 등장 */
+.tooltip-trigger:hover::after,
+.tooltip-trigger:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ✅ 아이콘 hover 시 살짝 강조 효과 */
+.topbtn i:hover {
+    color: #383e4c;
+    transition: color 0.2s ease;
+}

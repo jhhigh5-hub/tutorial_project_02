@@ -83,6 +83,21 @@
                                 <div class="post-header">
                                     <i class="fa-solid fa-circle-user"></i>
                                         ${post.writerId}
+
+                                    <!-- 땡땡이 버튼 (작성자만 보이게) -->
+                                    <c:if test="${auth && logonUser.id == post.writerId}">
+                                        <div class="post-menu">
+                                            <button type="button" class="menu-btn">⋮</button>
+                                            <div class="menu-dropdown">
+                                                <form action="/band/post/delete" method="post"
+                                                      onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                                                    <input type="hidden" name="postNo" value="${post.no}">
+                                                    <input type="hidden" name="bandNo" value="${band.no}">
+                                                    <button type="submit" class="delete-option">🗑 삭제</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </c:if>
                                 </div>
                                 <div class="post-content">${post.content}</div>
                                 <div class="post-hashtag">＃${post.hashtag}</div>
@@ -119,8 +134,26 @@
                                     <div class="comment-list">
                                         <c:forEach var="comment" items="${post.comments}">
                                             <div class="comment-item">
-                                                    ${comment.writerId} : ${comment.content}
-                                                <span class="comment-date">${comment.commentedAt}</span>
+                                                <!-- 🟢 왼쪽: 작성자 + 내용 -->
+                                                <div class="comment-left">
+                                                    <strong>${comment.writerId}</strong> : ${comment.content}
+                                                </div>
+
+                                                <!-- 🟢 오른쪽: 작성일 + (본인일 경우 삭제 버튼) -->
+                                                <div class="comment-right">
+                                                    <span class="comment-date">${comment.commentedAt}</span>
+
+                                                    <!-- 🟢 본인 댓글일 때만 삭제 버튼 노출 -->
+                                                    <c:if test="${auth && logonUser.id == comment.writerId}">
+                                                        <form action="/band/comment/delete" method="post" class="comment-delete-form"
+                                                              onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
+                                                            <input type="hidden" name="commentNo" value="${comment.no}">
+                                                            <input type="hidden" name="postNo" value="${post.no}">
+                                                            <input type="hidden" name="bandNo" value="${band.no}">
+                                                            <button type="submit" class="comment-delete-btn">삭제</button>
+                                                        </form>
+                                                    </c:if>
+                                                </div>
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -190,6 +223,22 @@
             } else {
                 form.style.display = 'none';
             }
+        });
+    });
+
+    // 땡땡이 버튼 클릭 시 삭제 메뉴 토글
+    document.querySelectorAll('.menu-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const menu = this.closest('.post-menu');
+            menu.classList.toggle('active');
+        });
+    });
+
+    // 바깥 클릭 시 메뉴 닫기
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.post-menu.active').forEach(menu => {
+            menu.classList.remove('active');
         });
     });
 
