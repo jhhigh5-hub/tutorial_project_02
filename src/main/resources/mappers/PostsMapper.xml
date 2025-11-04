@@ -65,6 +65,6 @@
     </delete>
     <!-- 게시글 삭제 -->
     <delete id="deletePostByNo" parameterType="int">
-        DELETE FROM posts WHERE no = #{postNo}
+        DELETE FROM posts WHERE no = #{no}
     </delete>
 </mapper>

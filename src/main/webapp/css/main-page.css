@@ -201,43 +201,88 @@ header{
 
 
 /* section-2 */
-.section-2{
-    display: flex;
-    flex-wrap: wrap; /* 자동 줄바꿈 */
-    align-items: center;      /* 세로 가운데 정렬 */
-    gap: 20px;
-    padding: 20px 0px;
+/* ================== section-2 밴드 카드 배치 ================== */
+/* section-2 */
+.section-2 {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(180px, 1fr)); /* 최소 180px, 남는 공간 균등 배분 */
+    gap: 20px; /* 카드 사이 간격 */
+    padding: 20px 0;
+    margin: 0 auto;
+    max-width: 1200px; /* 최대 넓이 제한 */
 }
 
-/* 🟩 모든 박스(만들기 + 밴드카드) 공통 스타일 */
-.newbox,
-.band-card {
-    flex: 1 1 calc(20% - 20px); /* 한 줄에 최대 5개 */
-    max-width: calc(20% - 20px);
-    min-width: 180px;
-
-    height: 200px;              /* ✅ 높이 통일 */
+/* 🟩 밴드 카드 공통 스타일 */
+.newbox, .band-card {
+    height: 180px; /* 카드 높이 */
     background-color: #fff;
-    border-radius: 30px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 15px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* 🟢 hover 효과 통합 */
-.newbox:hover,
-.band-card:hover {
+/* hover 효과 */
+.newbox:hover, .band-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background-color: #f5f5f5;
+
 }
 
-/* ➕ newbox 내부 스타일 */
+/* 마지막 줄의 카드만 왼쪽 정렬 */
+.section-2 .band-card:nth-last-child(-n+5) {
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+/* 🟢 밴드 이름 강조 - 선으로 강조 */
+.band-name {
+    font-size: 21px;              /* 글자 크기 */
+    font-weight: 500;             /* 강조 */
+    color: #3f4450;               /* 글자 진한 색 */
+    border-bottom: 0.5px solid #3f4450;
+    padding-bottom: 6px;          /* 밑줄과 글자 간격 */
+    margin-bottom: 10px;          /* 밴드 정보와 간격 */
+    width: 100%;                  /* 카드 전체 폭 */
+    text-align: left;             /* 왼쪽 정렬 */
+}
+
+/* 🟢 밴드 정보 구분 */
+.band-info {
+    font-size: 12px;
+    color: #777;
+    margin-top: auto; /* 하단으로 붙이기 */
+    padding-top: 6px; /* 텍스트와 구분선 간격 */
+    width: 100%; /* 카드 폭 맞춤 */
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+/* 🟢 방장 이름 강조 */
+.band-info .leader {
+    font-weight: 600;
+    color: #383e4c;
+}
+
+/* 🟢 멤버 수 */
+.band-info .members {
+    font-weight: 400;
+    color: #999;
+}
+
+/* 🟩 만들기 칸 스타일 */
+.newbox {
+    justify-content: center; /* 세로 중앙 */
+    align-items: center;     /* 가로 중앙 */
+    border-radius: 30px;
+}
+
+
+/* 🟢 플러스 아이콘 */
 .plus-circle {
     width: 60px;
     height: 60px;
@@ -253,23 +298,105 @@ header{
     color: #888;
     font-size: 24px;
 }
-
+.plus-circle:hover{
+    background-color: #fff;
+}
+    /* 🟢 newbox 내부 텍스트 */
 .newbox p {
     font-size: 17px;
     font-weight: 500;
+    text-align: center;
 }
 
-/* 👥 밴드 카드 내부 글씨 */
-.band-name {
-    font-size: 17px;
-    font-weight: 600;
-    margin: 5px 0;
+/* =========================================== */
+.comment-menu {
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
 }
 
-.band-card p {
+.comment-menu-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #888;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.comment-menu-btn:hover {
+    background-color: #f2f2f2;
+}
+
+.comment-menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 22px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    min-width: 80px;
+    z-index: 10;
+}
+
+.comment-menu-dropdown .delete-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 30px;
+    background: none;
+    border: none;
+    color: #d33;
     font-size: 14px;
-    color: #666;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
+
+.comment-menu-dropdown .delete-option:hover {
+    background-color: #ffeaea;
+}
+
+/* 메뉴 활성화 */
+.comment-menu.active .comment-menu-dropdown {
+    display: block;
+}
+
+/* =========================================== */
+/* 🟩 band-card 위치 relative 유지 */
+.band-card, .newbox {
+    position: relative; /* 삭제 버튼 위치 기준 */
+}
+
+.band-card .delete-form {
+    position: absolute;
+    top: 165px;
+    right: 18px;
+    z-index: 10;
+    display: block !important;
+}
+
+.delete-btn {
+    border: none;
+    color: #999;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+
+}
+
+.delete-btn:hover {
+    color: #d9363e; /* 호버 시 글자 색만 진하게 */
+
+}
+
+/* =========================================== */
+
 /* ✅ 툴팁 스타일 - 메인컬러 톤 맞춘 버전 */
 .tooltip-trigger {
     position: relative;
@@ -277,6 +404,40 @@ header{
     align-items: center;
     justify-content: center;
 }
+
+/* 🟢 band-card 위치 relative 유지 */
+.band-card {
+    position: relative;
+}
+
+/* 🟢 점 3개 메뉴 */
+.more-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* 🟢 점 3개 스타일 */
+.more-menu .dots {
+    font-size: 18px;
+    color: #888;
+}
+
+/* 🟢 기본적으로 삭제 버튼 숨김 */
+.delete-form {
+    display: none;
+    position: absolute;
+    top: 25px;  /* 점 아래에 표시 */
+    right: 0;
+}
+
+/* 🟢 점 클릭 시 삭제 버튼 보이게 */
+.more-menu.show .delete-form {
+    display: block;
+}
+
 
 /* 툴팁 텍스트 */
 /* 툴팁 텍스트 (조금 더 아래로) */

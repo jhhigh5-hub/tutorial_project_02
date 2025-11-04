@@ -14,9 +14,10 @@
     <delete id="deleteByMemberIdAndArticleNo" parameterType="postsLike">
         delete from postsLike where memberId = #{memberId} and postNo = #{postNo}
     </delete>
-    <delete id="deleteByArticleNo" parameterType="int">
+    <delete id="deleteByPostsNo" parameterType="int">
         delete from postsLike where articleNo = #{no}
     </delete>
+
     <select id="exists" parameterType="PostsLike" resultType="int">
         select count(*) from postsLike
         where memberId = #{memberId} and postNo = #{postNo}
@@ -31,5 +32,6 @@
         ORDER BY wroteAt DESC
         LIMIT #{offset}, #{amount}
     </select>
+
 
 </mapper>

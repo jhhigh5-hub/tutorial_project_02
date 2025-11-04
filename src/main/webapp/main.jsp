@@ -12,6 +12,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="/css/main-page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 <header>
@@ -22,13 +23,15 @@
             </div>
             <div class="search-box">
                 <form action="/search" method="get">
-                <input type="text" placeholder="밴드, 페이지, 게시글 검색" name="keyword">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="밴드, 페이지, 게시글 검색" name="keyword">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </form>
             </div>
         </div>
         <div class="top-right-box">
-            <a href="/member/logout"><button class="top-logout">로그아웃</button></a>
+            <a href="/member/logout">
+                <button class="top-logout">로그아웃</button>
+            </a>
             <div class="topbtn">
                 <div class="top-new-post">
                     <a href="/band/posts-all" class="notify-link tooltip-trigger" data-tooltip="내 글 전체보기">
@@ -67,10 +70,10 @@
             <div class="section-2">
                 <div class="newbox">
                     <a href="/band/new">
-                    <div class="plus-circle">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <p>만들기</p>
+                        <div class="plus-circle">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <p>만들기</p>
                     </a>
                 </div>
                 <c:choose>
@@ -82,10 +85,20 @@
                                     <div class="band-info">
                                         <p>👑 방장: <span>${banditem.createMaster}</span></p>
                                         <p>👥 멤버수: <span>${banditem.memberCnt}</span></p>
-
                                     </div>
                                 </a>
-                                </div>
+
+                                <c:if test="${banditem.createMaster eq sessionScope.logonUser.id}">
+                                    <form action="/band/post/delete" method="post" class="delete-form">
+                                        <input type="hidden" name="postNo" value="${banditem.no}">
+                                        <input type="hidden" name="bandNo" value="${banditem.no}">
+                                        <button type="submit" class="delete-btn">
+                                            <i class="fa-solid fa-trash-can"></i><!-- 쓰레기통 아이콘 -->
+                                        </button>
+                                    </form>
+                                </c:if>
+
+                            </div>
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
@@ -99,5 +112,11 @@
         </div>
     </div>
 </main>
+<script>
+
+
+
+</script>
+
 </body>
 </html>

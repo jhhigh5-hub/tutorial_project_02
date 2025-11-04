@@ -21,11 +21,11 @@ public class BandPostDelete extends HttpServlet {
         req.setAttribute("auth", logonUser != null);
 
 
-        int postNo;
+        int no;
         int bandNo;
 
         try {
-            postNo = Integer.parseInt(req.getParameter("postNo"));
+            no = Integer.parseInt(req.getParameter("no"));
             bandNo = Integer.parseInt(req.getParameter("bandNo"));
         } catch (NumberFormatException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "잘못된 요청입니다.");
@@ -38,7 +38,7 @@ public class BandPostDelete extends HttpServlet {
             sqlSession = MybatisUtil.build().openSession(true);
 
             // 2. 게시글 존재 여부 확인
-            Posts post = sqlSession.selectOne("mappers.PostsMapper.selectOneByNo", postNo);
+            Posts post = sqlSession.selectOne("mappers.PostsMapper.selectOneByNo", no);
 
             if (post == null) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "게시글을 찾을 수 없습니다.");
@@ -48,23 +48,24 @@ public class BandPostDelete extends HttpServlet {
             // 3. 작성자 본인 확인
             if (!post.getWriterId().equals(logonUser.getId())) {
                 resp.sendError(HttpServletResponse.SC_FORBIDDEN, "본인 게시글만 삭제할 수 있습니다.");
-                return;
+                // 4. 댓글 먼저 삭제
+                sqlSession.delete("mappers.PostsMapper.deleteCommentsByPostNo", no);
+                // 5. 게시글 삭제
+                sqlSession.delete("mappers.PostsLikeMapper.deleteByPostsNo", no);
+                sqlSession.delete("mappers.PostsMapper.deletePostByNo", no);
             }
-
-            // 4. 댓글 먼저 삭제
-            sqlSession.delete("mappers.PostsMapper.deleteCommentsByPostNo", postNo);
-
-            // 5. 게시글 삭제
-            sqlSession.delete("mappers.PostsMapper.deletePostByNo", postNo);
+            sqlSession.commit();
 
             // 6. 삭제 완료 후 밴드 게시판으로 리다이렉트
             resp.sendRedirect("/band/board?no=" + bandNo);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "게시글 삭제 중 오류가 발생했습니다.");
+            sqlSession.rollback();
         } finally {
-            if (sqlSession != null) sqlSession.close();
+            if (sqlSession != null)
+                sqlSession.close();
         }
     }
 

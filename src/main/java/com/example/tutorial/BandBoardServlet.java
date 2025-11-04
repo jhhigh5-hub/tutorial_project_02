@@ -159,7 +159,7 @@ public class BandBoardServlet extends HttpServlet {
         posts.setBandNo(bandNo);
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);
-        int r = sqlSession.insert("mappers.BandMapper.insertOne", posts);
+        int r = sqlSession.insert("mappers.PostsMapper.insertOne", posts);
 
         sqlSession.close();
 
