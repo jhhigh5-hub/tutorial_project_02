@@ -34,4 +34,8 @@
     <update id="increaseBandMemberCnt" parameterType="int">
         update band set memberCnt = memberCnt + 1 where no = #{bandNo}
     </update>
+
+    <delete id="deleteRequestsByBandNo" parameterType="int">
+        DELETE FROM bandJoinRequest WHERE bandNo = #{bandNo}
+    </delete>
 </mapper>

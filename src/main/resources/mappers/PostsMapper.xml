@@ -15,6 +15,9 @@
     <select id="selectAllByBanNo" parameterType="map" resultType="Posts">
         select * from posts where bandNo = #{bandNo} order by wroteAt desc limit #{amount} offset #{offset}
     </select>
+    <select id="selectAllPostsByBandNo" parameterType="int" resultType="Posts">
+        select * from posts where bandNo = #{bandNo} order by wroteAt desc
+    </select>
     <!-- 검색 -->
     <select id="countLikeKeyword" resultType="int">
         select count(*) from posts where content like #{keyword} or hashtag like #{keyword}

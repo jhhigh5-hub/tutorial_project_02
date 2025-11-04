@@ -11,6 +11,9 @@
     <select id="selectByNo" parameterType="int" resultType="band">
         select * from band where no = #{no}
     </select>
+    <select id="selectByBandNo" parameterType="int" resultType="band">
+        select * from band where no = #{bandNo}
+    </select>
 
     <select id="selectKeywordByOffset" resultType="Band" parameterType="map">
         select * from band
@@ -25,4 +28,9 @@
         union
         select * from band where createMaster = #{_parameter}
     </select>
+    <!-- 밴드 삭제 -->
+    <delete id="deleteBandByNo" parameterType="int">
+        DELETE FROM band
+        WHERE no = #{bandNo}
+    </delete>
 </mapper>

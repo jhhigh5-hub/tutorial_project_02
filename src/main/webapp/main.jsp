@@ -89,7 +89,8 @@
                                 </a>
 
                                 <c:if test="${banditem.createMaster eq sessionScope.logonUser.id}">
-                                    <form action="/band/post/delete" method="post" class="delete-form">
+                                    <form action="/band/delete" method="post" class="delete-form"
+                                          onsubmit="return confirm('밴드를 삭제하시겠습니까?');">
                                         <input type="hidden" name="postNo" value="${banditem.no}">
                                         <input type="hidden" name="bandNo" value="${banditem.no}">
                                         <button type="submit" class="delete-btn">
