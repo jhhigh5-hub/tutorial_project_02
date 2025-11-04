@@ -34,15 +34,15 @@
                         <td>${request.joinAt}</td>
                         <td>${request.joinStatus}</td>
                         <td>
-                            <form action="${pageContext.request.contextPath}/band/approveRequest" method="post" style="display:inline;">
-                                <input type="hidden" name="idx" value="${request.idx}">
+                            <form action="/band/join-request-manage" method="post" style="display:inline;">
                                 <input type="hidden" name="bandNo" value="${band.no}">
+                                <input type="hidden" name="memberId" value="${request.memberId}">
                                 <input type="hidden" name="action" value="approve">
                                 <button type="submit" class="btn btn-success">승인</button>
                             </form>
-                            <form action="${pageContext.request.contextPath}/band/approveRequest" method="post" style="display:inline;">
-                                <input type="hidden" name="idx" value="${request.idx}">
+                            <form action="/band/join-request-manage" method="post" style="display:inline;">
                                 <input type="hidden" name="bandNo" value="${band.no}">
+                                <input type="hidden" name="memberId" value="${request.memberId}">
                                 <input type="hidden" name="action" value="reject">
                                 <button type="submit" class="btn btn-danger">거절</button>
                             </form>
