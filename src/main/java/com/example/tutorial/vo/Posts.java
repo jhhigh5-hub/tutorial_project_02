@@ -24,5 +24,8 @@ public class Posts {
 
     // 좋아요 여부
     boolean alreadyLike;
+
+    // join으로 가져온 항목
+    String bandName;
     }
 

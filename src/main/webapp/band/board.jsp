@@ -66,7 +66,7 @@
                     <input type="text" name="title" placeholder="#태그 검색">
                     <textarea name="content" placeholder="글 내용을 입력하세요." rows="20" required></textarea>
                     <div class="hashtag-group">
-                        <input class="hashtag" type="text" name="tag-input" placeholder="" value="${band.category}">
+                        <input class="hashtag" type="text" name="tag-input" placeholder="해시태그">
                         <div class="post-actions">
                             <button type="submit" class="btn">게시</button>
                         </div>
