@@ -145,7 +145,7 @@
 
                                                     <!-- 🟢 본인 댓글일 때만 삭제 버튼 노출 -->
                                                     <c:if test="${auth && logonUser.id == comment.writerId}">
-                                                        <form action="/band/post/delete" method="post" class="comment-delete-form"
+                                                        <form action="/band/comment/delete" method="post" class="comment-delete-form"
                                                               onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
                                                             <input type="hidden" name="commentNo" value="${comment.no}">
                                                             <input type="hidden" name="postNo" value="${post.no}">

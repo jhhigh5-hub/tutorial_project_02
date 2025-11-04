@@ -32,7 +32,14 @@
     </insert>
     <!-- 댓글 조회 -->
     <select id="selectCommentsByPostNo" parameterType="int" resultType="comment">
-        select*from comment where postNo = #{postNo} order by commentedAt ASC
+        select * from comment where postNo = #{postNo} order by commentedAt ASC
+    </select>
+    <select id="selectCommentsByCommentNo" parameterType="int" resultType="comment">
+        select * from comment where no = #{commentNo} order by commentedAt ASC
+    </select>
+    <!-- 게시글 조회 -->
+    <select id="selectPostsByBandNo" parameterType="int" resultType="Posts">
+        select * from posts where bandNo = #{bandNo} order by commentedAt ASC
     </select>
     <!-- 게시글 하나 상세 조회 -->
     <select id="selectOneByNo" parameterType="int" resultType="Posts">
@@ -59,12 +66,12 @@
         update posts set content = #{content}, hashtag = #{hashtag} where no = #{no}
     </update>
 
-    <!-- 댓글 전체 삭제 -->
-    <delete id="deleteCommentsByPostNo" parameterType="int">
-        DELETE FROM comment WHERE postNo = #{postNo}
+    <!-- 댓글 삭제 -->
+    <delete id="deleteCommentsByCommentNo" parameterType="int">
+        DELETE FROM comment WHERE no = #{commentNo}
     </delete>
     <!-- 게시글 삭제 -->
-    <delete id="deletePostByNo" parameterType="int">
+    <delete id="deletePostByNo" parameterType="map">
         DELETE FROM posts WHERE no = #{no}
     </delete>
 </mapper>
