@@ -16,23 +16,22 @@ a{
     text-decoration: none;
 }
 header{
-    background-color: #424B52; /* 전체 상단 배경색 */
+    background-color: #5a6370; /* 전체 상단 배경색 */
     position: relative; /* ✅ 수정: z-index 작동 위해 추가 */
     z-index: 50; /* ✅ 수정 */
 }
 /*메인 탑*/
 .top-head{
-    height: 65px;
+    height: 70px;
     display: flex;
     justify-content: space-between;
-
-    color: #fff; /* 상단 안의 기본 글자색 */
     align-items: center;
+    color: #fff; /* 상단 안의 기본 글자색 */
     padding: 0 20px;
     max-width: 1200px;
-    margin: 0 auto;
-    position: relative; /* ✅ 수정 */
-    z-index: 51; /* ✅ 수정 */
+    margin: 0 auto 70px auto;
+    position: relative;
+    z-index: 51;
 }
 .top-head a,
 .top-head i {
@@ -41,7 +40,6 @@ header{
 
 .top-left-box{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 15px;
 }
@@ -88,35 +86,27 @@ header{
     cursor: pointer;
 }
 
-/* 로그아웃 버튼도 어울리게 */
-.top-logout {
-    background-color: #fff;
-    color: #424B52;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-weight: 550;
-}
-.top-logout:hover {
-    background-color: #ddd;
-}
 
 .top-right-box{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex;           /* 가로 배치 */
+    align-items: center;     /* 세로 중앙 정렬 */
+    gap: 13px;
 }
 .top-logout{
-    width: 100px;
-    height: 30px;
-    margin-right: 15px;
+    width: 90px;
+    height: 35px;
     cursor: pointer;
     border: none;
+    border-radius: 4px;
     font-size: 13px;
+    font-weight: 650;
+    transition: all 0.2s ease;
+    background-color: #fff;
 }
-.top-logout:hover{
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .2);
+.top-logout:hover {
+    background-color: #2f373d; /* 진한 배경색 */
+    color: #ffffff;             /* 글씨 흰색 */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* 살짝 그림자 */
 }
 /* ✅ 수정된 부분 시작 */
 .topbtn{
@@ -173,7 +163,8 @@ header{
 }
 
 .topbtn i:hover {
-    color: #dfe6ed;
+    color: #383e4c;
+    transition: color 0.2s ease;
 }
 /* 호버 시 툴팁 등장 */
 .tooltip-trigger:hover::after,

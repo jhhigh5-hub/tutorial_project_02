@@ -56,6 +56,28 @@ html, body {
 .create-post-btn:hover {
     background-color: #f3f3f3;
 }
+/* ====== 회원 관리 버튼 - 밑줄 스타일 ====== */
+.band-action .btn-warning {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;                  /* 버튼 높이 */
+    font-size: 14px;               /* 글씨 크기 */
+    color: #666;                /* 글씨 색: 연초록 */
+    background: none;              /* 배경 제거 */
+    border: none;                  /* 테두리 제거 */
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 7px;
+}
+
+.band-action .btn-warning:hover {
+    color: #333;                /* 글씨색 유지 */
+    border-bottom: 1px solid #666; /* 밑줄 */
+    font-weight: 650;
+}
+
 
 /* ====== 메인 영역 ====== */
 .band-main {
@@ -194,6 +216,22 @@ html, body {
     padding: 0;
     z-index: 10;
     overflow: hidden; /* 내부 버튼이 바깥으로 밀리는 거 방지 */
+    align-items: center;
+}
+.menu-dropdown form {
+    display: flex;             /* form 내부를 flex로 */
+    justify-content: center;   /* 가로 중앙 */
+    align-items: center;       /* 세로 중앙 */
+    margin: 0;                 /* 기본 margin 제거 */
+    padding: 0;                /* 기본 padding 제거 */
+    height: 100%;              /* dropdown 높이 꽉 채우기 */
+}
+
+.menu-dropdown .delete-option {
+    width: 100%;               /* 버튼 폭 dropdown과 맞춤 */
+    text-align: center;        /* 텍스트 중앙 */
+    padding: 8px 0;            /* 높이 확보 */
+    box-sizing: border-box;
 }
 .menu-item {
     display: flex;
@@ -420,7 +458,7 @@ html, body {
 }
 .comment-delete-btn {
     position: relative;
-    top: 1px; /*  아주 살짝 내려줌 */
+    top: 7px;
 }
 .comment-delete-btn {
     background: none;

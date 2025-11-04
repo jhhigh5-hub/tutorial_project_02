@@ -96,28 +96,45 @@ header{
 
 
 .top-right-box{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex;           /* 가로 배치 */
+    align-items: center;     /* 세로 중앙 정렬 */
+    gap: 13px;
 }
-.top-logout{
-    width: 100px;
-    height: 30px;
-    margin-right: 15px;
-    cursor: pointer;
+/* 로그아웃 버튼 기본 스타일 */
+.top-logout {
+    width: 90px;
+    height: 35px;
+    background-color: #eee;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
     font-size: 13px;
+    font-weight: 550;
+    transition: all 0.2s ease;
 }
-.top-logout:hover{
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .2);
+
+/* 호버 시 배경 진하게, 글씨 흰색 */
+.top-logout:hover {
+    background-color: #2f373d; /* 진한 배경색 */
+    color: #ffffff;             /* 글씨 흰색 */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* 살짝 그림자 */
 }
 .topbtn{
     display: flex;
     font-size: 24px;
     gap: 10px;
-    color: #888;
+    color: #999;
+    align-items: center;
+    position: relative;
+    z-index: 60; /* 다른 요소 위로 */
 }
-
+.topbtn a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto; /* 클릭 가능하게 */
+    z-index: 61;
+}
 
 /* 바로가기 */
 .quick-link{
@@ -175,7 +192,7 @@ header{
 /*section-1 */
 
 .section-1{
-    background-color: #eee9;
+    background-color: #ededed;
     padding: 10px 0px;
 
 }
@@ -226,15 +243,37 @@ header{
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
-
-/* hover 효과 */
+/* =================== 밴드 카드 호버 - 네이버 색 & 글씨 흰색 =================== */
 .newbox:hover, .band-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    background-color: #f5f5f5;
-
+    background-color: #03c75a; /* 네이버 그린톤 */
+    color: #ffffff; /* 글씨 흰색 */
 }
 
+/* 카드 내부 텍스트 모두 흰색으로 변경 */
+.newbox:hover .band-name,
+.newbox:hover .band-info,
+.newbox:hover .band-info .leader,
+.newbox:hover .band-info .members,
+.band-card:hover .band-name,
+.band-card:hover .band-info,
+.band-card:hover .band-info .leader,
+.band-card:hover .band-info .members {
+    color: #ffffff;
+}
+
+/* 밑줄 색도 흰색으로 변경 */
+.newbox:hover .band-name,
+.band-card:hover .band-name {
+    border-bottom: 0.5px solid #ffffff;
+}
+/* 만들기 플러스 동그라미 흰색 유지 */
+.newbox:hover .plus-circle {
+    background-color: #ffffff; /* 동그라미 배경 흰색 */
+}
+
+/* =================== =================== */
 /* 마지막 줄의 카드만 왼쪽 정렬 */
 .section-2 .band-card:nth-last-child(-n+5) {
     justify-content: flex-start; /* 왼쪽 정렬 */

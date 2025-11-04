@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+/* ====== 기본 설정 ====== */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: "Nanum Gothic", sans-serif;
+    background-color: #fff;
+    color: #222;
+}
+
+/* ====== main 중앙 배치 ====== */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* ====== content 박스 ====== */
+.content {
+    width: 100%;
+    max-width: 480px;
+    padding: 30px 25px;
+}
+
+/* ====== 제목 ====== */
+.con-title {
+    font-size: 22px;      /* 글씨 크게 */
+    font-weight: 700;     /* 굵게 */
+    text-align: center;   /* 가운데 정렬 */
+    margin-bottom: 25px;
+    color: #1a1a1a;       /* 진한 글씨 */
+}
+
+/* ====== 검색 리스트 표 스타일 ====== */
+.search-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+    border-collapse: collapse;
+}
+
+.search-item {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 18px;                 /* 여유있게 */
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #fafafa;          /* 연한 회색 배경 */
+    transition: all 0.2s ease;
+    border: 1px solid #eee;             /* 얇은 테두리 */
+}
+
+/* 마지막 아이템 테두리 제거 */
+.search-item:last-child {
+    margin-bottom: 0;
+}
+
+/* 🟩 검색 아이템 카드 공통 스타일 */
+.search-item {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* =================== 검색 아이템 호버 - 네이버 그린 & 글씨 흰색 =================== */
+.search-item:hover {
+    background-color: #03c75a; /* 네이버 그린톤 */
+    color: #ffffff;             /* 글씨 흰색 */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 내부 텍스트 모두 흰색으로 변경 */
+.search-item:hover .search-link,
+.search-item:hover .search-info {
+    color: #ffffff;
+}
+
+
+/* 링크 스타일 - 네이버 라이트 그린 계열 */
+.search-link {
+    font-size: 16px;        /* 글씨 키움 */
+    font-weight: 600;       /* 굵게 */
+    text-decoration: none;
+    color: #1FAE5C;         /* 기본 링크 색상 - 부드러운 그린 */
+    margin-bottom: 6px;
+    transition: color 0.2s ease;
+}
+
+.search-link:hover {
+    color: #03C75A;         /* 호버 시 조금 더 선명한 그린 */
+    text-decoration: underline;
+}
+
+
+/* 추가 정보 */
+.search-info {
+    font-size: 13px;       /* 조금 키움 */
+    color: #555;           /* 눈에 편하게 진한 회색 */
+    margin-top: 3px;
+}
+
+/* ====== 검색 결과 없을 때 ====== */
+.no-result {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    padding: 15px;
+    margin: 15px 0;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+}
