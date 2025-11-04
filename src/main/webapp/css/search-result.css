@@ -28,7 +28,7 @@ main {
 
 /* ====== 제목 ====== */
 .con-title {
-    font-size: 22px;      /* 글씨 크게 */
+    font-size: 20px;      /* 글씨 크게 */
     font-weight: 700;     /* 굵게 */
     text-align: center;   /* 가운데 정렬 */
     margin-bottom: 25px;

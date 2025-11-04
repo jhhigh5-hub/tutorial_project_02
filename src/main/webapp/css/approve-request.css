@@ -34,11 +34,16 @@ main.main-content {
 }
 
 /* ====== 제목 ====== */
+.band-name-highlight {
+    font-weight: 700;                  /* 더 굵게 */
+    font-size: 20px;
+}
+
 .con-title {
-    font-size: 18px; /* 작게 */
+    font-size: 20px; /* 작게 */
     font-weight: 600;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     color: #222;
 }
 
@@ -130,7 +135,7 @@ main.main-content {
     justify-content: center;
     align-items: center;
     height: 28px;
-    padding: 0 12px;
+    padding: 0 45px;
     border-radius: 16px;
     font-weight: 500;
     color: #333;

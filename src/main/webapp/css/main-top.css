@@ -29,9 +29,13 @@ header{
     color: #fff; /* 상단 안의 기본 글자색 */
     padding: 0 20px;
     max-width: 1200px;
-    margin: 0 auto 70px auto;
+    margin: 0 auto auto;
     position: relative;
     z-index: 51;
+}
+.header-line{
+    height: 30px;
+    background-color: #3a414a;
 }
 .top-head a,
 .top-head i {

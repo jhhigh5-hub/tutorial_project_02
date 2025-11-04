@@ -18,7 +18,6 @@
 <body>
 <%@ include file="/template/main-top.jspf" %>
 <main>
-    <div class="header-line"></div>
     <div class="container">
         <div class="band-left">
             <div class="band-images">
@@ -64,7 +63,7 @@
                     <input type="hidden" name="bandNo" value="${band.no}">
                     <!-- 게시글 제목 입력 필드 추가 -->
                     <input type="text" name="title" placeholder="#태그 검색">
-                    <textarea name="content" placeholder="글 내용을 입력하세요." rows="20" required></textarea>
+                    <textarea name="content" placeholder="글 내용을 입력하세요." rows="10" required></textarea>
                     <div class="hashtag-group">
                         <input class="hashtag" type="text" name="tag-input" placeholder="" value="${band.category}">
                         <div class="post-actions">

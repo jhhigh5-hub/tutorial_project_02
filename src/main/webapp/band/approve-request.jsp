@@ -17,7 +17,9 @@
 <div class="header-line"></div>
 <main class="main-content">
     <div class="content">
-        <h2 class="con-title">${band.bandName} 가입 요청 관리</h2>
+        <h2 class="con-title">
+            <span class="band-name-highlight"> " ${band.bandName} "</span> 가입 요청 관리
+        </h2>
 
         <c:choose>
             <c:when test="${not empty pendingRequests}">

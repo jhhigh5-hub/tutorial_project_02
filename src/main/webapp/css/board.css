@@ -70,11 +70,12 @@ html, body {
     text-decoration: none;
     font-weight: 500;
     margin-top: 7px;
+    border-bottom: 1px solid #666; /* 밑줄 */
 }
 
 .band-action .btn-warning:hover {
     color: #333;                /* 글씨색 유지 */
-    border-bottom: 1px solid #666; /* 밑줄 */
+    border-bottom: 1px solid #333; /* 밑줄 */
     font-weight: 650;
 }
 
@@ -402,7 +403,7 @@ html, body {
     width: 70px;
     align-self: flex-end;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     background: linear-gradient(145deg, #2C3239, #3a414a);
     color: #fff;
     padding: 7px 18px;
