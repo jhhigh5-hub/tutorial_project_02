@@ -32,9 +32,11 @@
             </a>
             <div class="topbtn">
                 <div class="top-new-post">
-                    <a href="/band/posts-all" class="tooltip-trigger" data-tooltip="내 글 전체 모아보기">
-                        <i class="fa-solid fa-bell"></i>
-                    </a>
+                    <div>
+                        <a href="/band/posts-all" title="내 글 전체 모아보기">
+                            <i class="fa-solid fa-bell"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="top-profile">
                     <a href="" class="tooltip-trigger" data-tooltip="내 정보">
