@@ -57,21 +57,28 @@
 
         </div>
         <div class="band-main">
-            <div class="create-post-box">
-                <form action="/band/board" method="post">
-                    <!-- 현재 밴드 번호를 숨겨서 보냄 -->
-                    <input type="hidden" name="bandNo" value="${band.no}">
-                    <!-- 게시글 제목 입력 필드 추가 -->
-                    <input type="text" name="title" placeholder="#태그 검색">
-                    <textarea name="content" placeholder="글 내용을 입력하세요." rows="10" required></textarea>
-                    <div class="hashtag-group">
-                        <input class="hashtag" type="text" name="tag-input" placeholder="해시태그">
-                        <div class="post-actions">
-                            <button type="submit" class="btn">게시</button>
+            <c:if test="${userBandStatus == 'JOINED' || userBandStatus == 'MASTER'}">
+                <div class="create-post-box">
+                    <form action="/band/board" method="post">
+                        <!-- 현재 밴드 번호를 숨겨서 보냄 -->
+                        <input type="hidden" name="bandNo" value="${band.no}">
+                        <!-- 게시글 제목 입력 필드 추가 -->
+                        <input type="text" name="title" placeholder="#태그 검색">
+                        <textarea name="content" placeholder="글 내용을 입력하세요." rows="10" required></textarea>
+                        <div class="hashtag-group">
+                            <input class="hashtag" type="text" name="tag-input" placeholder="해시태그">
+                            <div class="post-actions">
+                                <button type="submit" class="btn">게시</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            </c:if>
+            <c:if test="${userBandStatus != 'JOINED' && userBandStatus != 'MASTER'}">
+                <div class="create-post-box disabled">
+                    <p class="no-permission">밴드에 가입된 멤버만 글쓰기가 가능합니다.</p>
+                </div>
+            </c:if>
 
             <div class="bord">
                 <c:choose>
@@ -144,7 +151,8 @@
 
                                                     <!-- 🟢 본인 댓글일 때만 삭제 버튼 노출 -->
                                                     <c:if test="${auth && logonUser.id == comment.writerId}">
-                                                        <form action="/band/comment/delete" method="post" class="comment-delete-form"
+                                                        <form action="/band/comment/delete" method="post"
+                                                              class="comment-delete-form"
                                                               onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
                                                             <input type="hidden" name="commentNo" value="${comment.no}">
                                                             <input type="hidden" name="postNo" value="${post.no}">
@@ -227,7 +235,7 @@
 
     // 땡땡이 버튼 클릭 시 삭제 메뉴 토글
     document.querySelectorAll('.menu-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function (e) {
             e.stopPropagation();
             const menu = this.closest('.post-menu');
             menu.classList.toggle('active');
@@ -235,7 +243,7 @@
     });
 
     // 바깥 클릭 시 메뉴 닫기
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function () {
         document.querySelectorAll('.post-menu.active').forEach(menu => {
             menu.classList.remove('active');
         });

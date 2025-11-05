@@ -35,14 +35,14 @@ public class BandCommentDeleteServlet extends HttpServlet {
         System.out.println("로그인 유저의 ID 값: " + user.getId());
         System.out.println("로그인 유저의 ID 타입: " + user.getId().getClass().getName());
 
-        PostsLike pl = new PostsLike();
-        pl.setMemberId(user.getId());
-        pl.setPostNo(postNo);
-
-        System.out.println("PostsLike 객체 (pl) memberId 값: " + pl.getMemberId());
-        System.out.println("PostsLike 객체 (pl) memberId 타입: " + pl.getMemberId().getClass().getName());
-        System.out.println("PostsLike 객체 (pl) postNo 값: " + pl.getPostNo());
-        System.out.println("PostsLike 객체 (pl) postNo 타입: " + ((Object)pl.getPostNo()).getClass().getName());
+//        PostsLike pl = new PostsLike();
+//        pl.setMemberId(user.getId());
+//        pl.setPostNo(postNo);
+//
+//        System.out.println("PostsLike 객체 (pl) memberId 값: " + pl.getMemberId());
+//        System.out.println("PostsLike 객체 (pl) memberId 타입: " + pl.getMemberId().getClass().getName());
+//        System.out.println("PostsLike 객체 (pl) postNo 값: " + pl.getPostNo());
+//        System.out.println("PostsLike 객체 (pl) postNo 타입: " + ((Object)pl.getPostNo()).getClass().getName());
 
         Comment comment = sqlSession.selectOne("mappers.PostsMapper.selectCommentsByCommentNo", commentNo);
 
@@ -50,7 +50,7 @@ public class BandCommentDeleteServlet extends HttpServlet {
         try {
             // 2. 삭제하고자하는 글을 좋아요, 댓글 등의 정보들을 전부 삭제해야지만 글이 삭제됨.
             if (user != null && comment != null && comment.getWriterId().equals(user.getId())) {
-                sqlSession.delete("mappers.PostsLikeMapper.deleteByMemberIdAndArticleNo", pl);
+//                sqlSession.delete("mappers.PostsLikeMapper.deleteByMemberIdAndArticleNo", pl);
                 sqlSession.delete("mappers.PostsMapper.deleteCommentsByCommentNo", commentNo);
             }
             sqlSession.commit();

@@ -17,6 +17,9 @@ public class BandJoinRequestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Member logonUser = (Member) req.getSession().getAttribute("logonUser");
+        if (logonUser == null) {
+            resp.sendRedirect("/member/login");
+        }
         int bandNo = Integer.parseInt(req.getParameter("bandNo"));
 
         SqlSession sqlSession = MybatisUtil.build().openSession(true);

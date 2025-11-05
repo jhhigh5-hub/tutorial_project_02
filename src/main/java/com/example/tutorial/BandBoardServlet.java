@@ -23,6 +23,9 @@ public class BandBoardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 로그인 유저 정보 가져오기
         Member logonUser = (Member) req.getSession().getAttribute("logonUser");
+        if (logonUser == null) {
+            resp.sendRedirect("/member/login");
+        }
         req.setAttribute("auth", logonUser != null);
 
         // 1. bandNo 파라미터 가져오기
@@ -92,7 +95,7 @@ public class BandBoardServlet extends HttpServlet {
             if (page < 1) page = 1;
             if (page > lastPage && lastPage > 0) page = lastPage;
 
-            int offset = (page -1) * POSTS_PER_PAGE;
+            int offset = (page - 1) * POSTS_PER_PAGE;
 
             Map<String, Object> postsParam = new HashMap<>();
             postsParam.put("bandNo", bandNo);
@@ -141,6 +144,7 @@ public class BandBoardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Member logonUser = (Member) req.getSession().getAttribute("logonUser");
+        int bandNo = Integer.parseInt(req.getParameter("bandNo"));
         String hashtag = req.getParameter("hashtag");
         String content = req.getParameter("content");
 
@@ -150,20 +154,39 @@ public class BandBoardServlet extends HttpServlet {
             return;
         }
 
-        int bandNo = Integer.parseInt(req.getParameter("bandNo"));
+            SqlSession sqlSession = MybatisUtil.build().openSession(true);
 
-        Posts posts = new Posts();
-        posts.setWriterId(logonUser.getId());
-        posts.setHashtag(hashtag);
-        posts.setContent(content);
-        posts.setBandNo(bandNo);
+            // ✅ 1️⃣ 이 사용자가 밴드에 가입된 상태인지 확인
+            Map<String, Object> params = new HashMap<>();
+            params.put("bandNo", bandNo);
+            params.put("memberId", logonUser.getId());
 
-        SqlSession sqlSession = MybatisUtil.build().openSession(true);
-        int r = sqlSession.insert("mappers.PostsMapper.insertOne", posts);
+            BandJoinRequest joinStatus = sqlSession.selectOne(
+                    "mappers.BandJoinRequestMapper.selectBandJoinStatus",
+                    params
+            );
 
-        sqlSession.close();
+            boolean isJoined = false;
+            if (joinStatus != null && "approved".equals(joinStatus.getJoinStatus())) {
+                isJoined = true;
+            }
 
-        resp.sendRedirect("/band/board?no=" + bandNo);
-    }
+            // ✅ 2️⃣ 가입되지 않은 유저는 글쓰기 금지
+            if (!isJoined) {
+                req.setAttribute("errorMessage", "밴드에 가입된 멤버만 게시글을 작성할 수 있습니다.");
+                return;
+            }
 
+            Posts posts = new Posts();
+            posts.setWriterId(logonUser.getId());
+            posts.setHashtag(hashtag);
+            posts.setContent(content);
+            posts.setBandNo(bandNo);
+
+            int r = sqlSession.insert("mappers.PostsMapper.insertOne", posts);
+
+            sqlSession.close();
+
+            resp.sendRedirect("/band/board?no=" + bandNo);
+        }
 }

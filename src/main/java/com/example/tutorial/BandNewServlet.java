@@ -27,9 +27,7 @@ public class BandNewServlet extends HttpServlet {
             return;
         }
 
-        req.setAttribute("auth", true);
         req.setAttribute("logonUser", req.getSession().getAttribute("logonUser"));
-        req.setAttribute("logonUserNickname", logonUser.getNickname());
 
         req.getRequestDispatcher("/band/new.jsp").forward(req, resp);
     }
@@ -37,6 +35,9 @@ public class BandNewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Member logonUser = (Member) req.getSession().getAttribute("logonUser");
+        if (logonUser == null) {
+            resp.sendRedirect("/member/login");
+        }
 
         String bandName = req.getParameter("bandName");
         String category = req.getParameter("category");

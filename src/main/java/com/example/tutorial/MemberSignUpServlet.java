@@ -87,7 +87,7 @@ public class MemberSignUpServlet extends HttpServlet {
             int r = sqlSession.insert("mappers.MemberMapper.insertOne", member);
 
             if (r == 1) {
-                req.getRequestDispatcher("/main.jsp").forward(req, resp);
+                resp.sendRedirect("/member/login");
             } else {
                 req.setAttribute("generalERR", "회원가입에 실패했습니다. 다시 시도해주세요.");
                 req.getRequestDispatcher("/member/signup-fail.jsp").forward(req, resp);

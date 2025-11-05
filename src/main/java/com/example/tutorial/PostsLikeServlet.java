@@ -21,7 +21,7 @@ public class PostsLikeServlet extends HttpServlet {
 
         Member logonUser = (Member) req.getSession().getAttribute("logonUser");
         if (logonUser == null) {
-            resp.sendRedirect("/login");
+            resp.sendRedirect("/member/login");
             return;
         }
 
