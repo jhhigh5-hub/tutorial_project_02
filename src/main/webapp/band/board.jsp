@@ -65,7 +65,7 @@
                         <!-- 게시글 제목 입력 필드 추가 -->
                         <textarea name="content" placeholder="글 내용을 입력하세요." rows="10" required></textarea>
                         <div class="hashtag-group">
-                            <input class="hashtag" type="text" name="hashtag" placeholder="해시태그">
+                            <input class="hashtag" type="text" name="hashtag" placeholder="해시태그 입력 가능">
                             <div class="post-actions">
                                 <button type="submit" class="btn">게시</button>
                             </div>
