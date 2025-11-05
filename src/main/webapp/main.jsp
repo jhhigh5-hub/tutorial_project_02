@@ -112,6 +112,43 @@
             </div>
         </div>
     </div>
+    <div class="section-2">
+        <div class="contain">
+            <div class="bandtitle">전체 밴드</div>
+            <div class="section-2">
+                <c:choose>
+                    <c:when test="${not empty allBand}">
+                        <c:forEach var="band" items="${allBand}">
+                            <c:set var="joined" value="false"/>
+                            <c:forEach var="jb" items="${myJoinedBands}">
+                                <c:if test="${jb.no == band.no}">
+                                    <c:set var="joined" value="true"/>
+                                </c:if>
+                            </c:forEach>
+
+                            <c:if test="${not joined}">
+                            <!-- 아직 가입하지 않은 밴드만 표시 -->
+                            <div class="band-card">
+                                <a href="/band/board?no=${band.no}">
+                                    <p class="band-name">${band.bandName}</p>
+                                    <div class="band-info">
+                                        <p>👑 방장: ${band.createMaster}</p>
+                                        <p>👥 멤버수: ${band.memberCnt}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </c:if>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="band-item-card">
+                            <p>등록된 밴드가 없습니다.</p>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+    </div>
 </main>
 <script>
 

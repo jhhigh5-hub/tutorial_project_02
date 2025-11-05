@@ -8,6 +8,9 @@
         values(#{createMaster}, #{bandName}, #{category}, #{memberCnt}, #{bandImgPath});
     </insert>
 
+    <select id="selectAll" resultType="Band">
+        select * from band order by no desc
+    </select>
     <select id="selectByNo" parameterType="int" resultType="band">
         select * from band where no = #{no}
     </select>

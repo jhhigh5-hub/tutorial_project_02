@@ -25,8 +25,11 @@ public class MainServlet extends HttpServlet {
         SqlSession sqlSession = null;
         try {
             sqlSession = MybatisUtil.build().openSession();
+
             List<Band> myJoinedBands = sqlSession.selectList("mappers.BandMapper.selectBandList", logonUser.getId());
+            List<Band> allBand = sqlSession.selectList("mappers.BandMapper.selectAll");
             req.setAttribute("myJoinedBands", myJoinedBands);
+            req.setAttribute("allBand", allBand);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
