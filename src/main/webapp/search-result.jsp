@@ -44,8 +44,9 @@
                 <ul class="search-list">
                     <c:forEach var="post" items="${posts}">
                         <li class="search-item">
-                            <a href="posts/detail?no=${post.no}" class="search-link">
-                                    ${post.hashtag != null ? '#' + post.hashtag : '게시글'}: ${post.content}
+                            <a href="/band/board?no=${post.bandNo}" class="search-link">
+                                    ${post.hashtag != null ? ('#' ) : ''}${post.hashtag != null ? post.hashtag : '게시글'}
+<%--                            ${post.hashtag != null ? '#'+post.hashtag : '게시글'}: ${post.content}--%>
                             </a>
                             <span class="search-info">작성자: ${post.writerId}</span>
                             <span class="search-info">작성일: ${post.wroteAt}</span>
